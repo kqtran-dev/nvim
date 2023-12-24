@@ -1,4 +1,4 @@
 return {
-	"folke/tokyonight.nvim",
-	"catppuccin/nvim"
+    "catppuccin/nvim",
+	"folke/tokyonight.nvim"
 }
