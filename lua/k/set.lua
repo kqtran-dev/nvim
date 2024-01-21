@@ -26,3 +26,6 @@ vim.opt.list = true
 
 vim.opt.listchars = "tab:⇤–⇥,trail:·,extends:⇢,precedes:⇠,space:·"
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
+
+-- obsidian
+vim.opt.conceallevel = 1
