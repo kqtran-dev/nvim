@@ -4,10 +4,14 @@
 
 `git clone --recurse-submodules git@github.com:kqtran-dev/nvim.git`
 
-### install ripgrep
+### dependencies
+#### telescope
 `choco install fd`
-
 `choco install ripgrep`
 
 ## Linux
 `stow -d ~/.config -t ~ nvim`
+
+### dependencies
+#### telescope
+`sudo apt install clang`
