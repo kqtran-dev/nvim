@@ -17,12 +17,8 @@ return {
   opts = {
       workspaces = {
           {
-              name = "Obsidian",
-              path = "/home/k/obsidian",
-          },
-          {
-              name = "Obsidian",
-              path = "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents",
+              name = "main",
+              path = "${HOME}/obsidian/Documents",
           }
       }
   },
