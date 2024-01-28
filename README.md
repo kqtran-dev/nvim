@@ -10,4 +10,4 @@
 `choco install ripgrep`
 
 ## Linux
-`stow -d ~/.config -t ~ ~/.config/nvim`
+`stow -d ~/.config -t ~ nvim`
