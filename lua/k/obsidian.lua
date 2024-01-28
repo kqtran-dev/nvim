@@ -16,6 +16,6 @@ local paths = {
 local workspaces = {}
 for _, path in ipairs(paths) do
     if path_exists(path) then
-        table.insert(workspaces, { name = "main", path = path })
+        table.insert(workspaces, { name = name, path = path })
     end
 end
