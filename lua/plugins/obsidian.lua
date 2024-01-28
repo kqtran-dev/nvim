@@ -10,7 +10,8 @@ end
 
 local workspaces_paths = {
     ["Documents"] = "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents",
-    ["iCloud~md~obsidian"] = "/c/Users/k/iCloudDrive/iCloud~md~obsidian"
+    ["iCloud~md~obsidian"] = "/c/Users/k/iCloudDrive/iCloud~md~obsidian",
+    ["obsidian"] = "/home/k/obsidian",
 }
 
 function setup_workspaces()
