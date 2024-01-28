@@ -8,3 +8,6 @@
 `choco install fd`
 
 `choco install ripgrep`
+
+## Linux
+`stow -d ~/.config -t ~ ~/.config/nvim`
