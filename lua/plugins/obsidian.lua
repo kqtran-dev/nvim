@@ -21,8 +21,8 @@ return {
               path = "/home/k/obsidian",
           },
           {
-              name = "Obsidian"
-              path = "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents"
+              name = "Obsidian",
+              path = "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents",
           }
       }
   },
