@@ -1,5 +1,6 @@
 require("k.remap")
 require("k.set")
+require("k.obsidian")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -56,5 +57,4 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
 
   },
-
 }
