@@ -28,7 +28,7 @@ return {
     --  * "current_dir" - put new notes in same directory as the current buffer.
     --  * "notes_subdir" - put new notes in the default notes subdirectory.
     new_notes_location = "current_dir",
-
+    log_level= vim.log.levels.INFO,
     -- Control how wiki links are completed with these (mutually exclusive) options:
     --
     -- 1. Whether to add the note ID during completion.
