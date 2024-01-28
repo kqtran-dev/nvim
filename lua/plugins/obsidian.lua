@@ -1,3 +1,28 @@
+function path_exists(path)
+    local f = io.open(path, "r")
+    if f ~= nil then
+        io.close(f)
+        return true
+    else
+        return false
+    end
+end
+
+local workspaces_paths = {
+    ["Documents"] = "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents",
+    ["iCloud~md~obsidian"] = "/c/Users/k/iCloudDrive/iCloud~md~obsidian"
+}
+
+function setup_workspaces()
+    local workspaces = {}
+    for name, path in pairs(workspaces_paths) do
+        if path_exists(path) then
+            table.insert(workspaces, { name = name, path = path })
+    end
+end
+return workspaces
+end
+
 return {
   "epwalsh/obsidian.nvim",
   version = "*",  -- recommended, use latest release instead of latest commit
@@ -15,7 +40,7 @@ return {
     "nvim-lua/plenary.nvim",
   },
   opts = {
-      workspaces = workspaces
+      workspaces = setup_workspaces()
   },
   completion = {
     -- Set to false to disable completion.
