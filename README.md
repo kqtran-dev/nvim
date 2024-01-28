@@ -15,3 +15,6 @@
 ### dependencies
 #### telescope
 `sudo apt install clang`
+
+#### obsidian
+`sudo apt install ripgrep`
