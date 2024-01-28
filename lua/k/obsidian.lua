@@ -9,8 +9,8 @@ function path_exists(path)
 end
 
 local paths = {
-    "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents",
-    "/c/Users/k/iCloudDrive/iCloud~md~obsidian"
+    ["Documents"] = "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents",
+    ["iCloud~md~obsidian"] = "/c/Users/k/iCloudDrive/iCloud~md~obsidian"
 }
 
 local workspaces = {}
