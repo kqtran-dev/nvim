@@ -15,12 +15,7 @@ return {
     "nvim-lua/plenary.nvim",
   },
   opts = {
-      workspaces = {
-          {
-              name = "main",
-              path = "${HOME}/obsidian/Documents",
-          }
-      }
+      dir = "~/obsidian/Documents"
   },
   completion = {
     -- Set to false to disable completion.
