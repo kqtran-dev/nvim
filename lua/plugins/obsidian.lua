@@ -31,8 +31,8 @@ return {
   --ft = "markdown",
   -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
   event = {
-      "BufReadPre " .. "/**/main/**.md",
-      "BufNewFile " .. "/**/main/**.md",
+      "BufReadPre " .. "/**/Obsidian/main/**.md",
+      "BufNewFile " .. "/**/Obsidian/main/**.md",
   },
   dependencies = {
     'nvim-lua/plenary.nvim',
