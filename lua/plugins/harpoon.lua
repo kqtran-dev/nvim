@@ -1,3 +1,4 @@
 return {
-	'theprimeagen/harpoon'
+	'theprimeagen/harpoon',
+	event = 'VimEnter'
 }

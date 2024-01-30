@@ -2,6 +2,8 @@ vim.opt.guicursor = ""
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
+-- perf
+vim.opt.shadafile = "NONE"
 
 -- wraps and tabs
 vim.opt.smartindent = true

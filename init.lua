@@ -1,1 +1,1 @@
-require("k")
+require("core")
