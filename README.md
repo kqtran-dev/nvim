@@ -9,6 +9,7 @@
 #### telescope
 
 `winget install sharkdp.fd`
+
 `winget install BurntSushi.ripgrep.MSVC`
 
 ## Linux
