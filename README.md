@@ -5,9 +5,12 @@
 `git clone --recurse-submodules git@github.com:kqtran-dev/nvim.git`
 
 ### dependencies
+
 #### telescope
-`choco install fd`
-`choco install ripgrep`
+
+`winget install sharkdp.fd`
+
+`winget install BurntSushi.ripgrep.MSVC`
 
 ## Linux
 `stow -d ~/.config -t ~ nvim`
