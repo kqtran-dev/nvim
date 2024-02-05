@@ -10,9 +10,30 @@ end
 
 local workspaces_paths = {
     ["Documents"] = "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents",
-    ["iCloud~md~obsidian"] = "/c/Users/k/iCloudDrive/iCloud~md~obsidian",
+    ["iCloud~md~obsidian"] = "~/iCloudDrive/iCloud~md~obsidian",
     ["obsidian"] = "/home/k/obsidian",
 }
+
+local os_name = vim.loop.os_uname().sysname
+
+local windows_events = {
+    "BufReadPre " .. "\\**\\main\\**.md",
+    "BufNewFile " .. "\\**\\main\\**.md",
+}
+
+local macos_events = {
+    "BufReadPre " .. "/**/main/**.md",
+    "BufNewFile " .. "/**/main/**.md",
+}
+
+local events 
+if os_name == "Windows_NT" then
+    events = windows_events
+elseif os_name == "Darwin" then
+    events = macos_events
+else
+    events = macos_events
+end
 
 function setup_workspaces()
     local workspaces = {}
@@ -30,10 +51,11 @@ return {
   lazy = true,
   --ft = "markdown",
   -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
-  event = {
-      "BufReadPre " .. "/**/main/**.md",
-      "BufNewFile " .. "/**/main/**.md",
-  },
+  -- event = {
+  --     "BufReadPre " .. "/**/main/**.md",
+  --     "BufNewFile " .. "/**/main/**.md",
+  -- },
+  event = events,
   dependencies = {
     'nvim-lua/plenary.nvim',
     'hrsh7th/nvim-cmp',
