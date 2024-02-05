@@ -1,3 +1,5 @@
+local utils = require("core.utils")
+
 function path_exists(path)
     local f = io.open(path, "r")
     if f ~= nil then
@@ -14,8 +16,6 @@ local workspaces_paths = {
     ["obsidian"] = "/home/k/obsidian",
 }
 
-local os_name = vim.loop.os_uname().sysname
-
 local windows_events = {
     "BufReadPre " .. "\\**\\main\\**.md",
     "BufNewFile " .. "\\**\\main\\**.md",
@@ -26,13 +26,14 @@ local macos_events = {
     "BufNewFile " .. "/**/main/**.md",
 }
 
-local events 
-if os_name == "Windows_NT" then
-    events = windows_events
-elseif os_name == "Darwin" then
-    events = macos_events
+if utils.os_name == "Windows NT" then
+    myevents = windows_events
+    myworkspace = {["iCloud~md~obsidian"] = "~/iCloudDrive/iCloud~md~obsidian"}
+elseif utils.os_name == "Darwin" then
+    myevents = macos_events
+    myworkspace = {["Documents"] = "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents"}
 else
-    events = macos_events
+    myevents = macos_events
 end
 
 function setup_workspaces()
@@ -55,15 +56,15 @@ return {
   --     "BufReadPre " .. "/**/main/**.md",
   --     "BufNewFile " .. "/**/main/**.md",
   -- },
-  event = events,
+  event = myevents,
   dependencies = {
     'nvim-lua/plenary.nvim',
     'hrsh7th/nvim-cmp',
     'nvim-telescope/telescope.nvim'
   },
   opts = {
-      workspaces = setup_workspaces()
-  },
+      workspaces = myworkspace
+    },
   finder_mappings = {
         -- Define the mappings for the telescope finder.
         new = "<C-x>",
