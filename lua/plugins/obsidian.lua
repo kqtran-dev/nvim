@@ -28,10 +28,19 @@ local macos_events = {
 
 if utils.os_name == "Windows NT" then
     myevents = windows_events
-    myworkspace = {["iCloud~md~obsidian"] = "~/iCloudDrive/iCloud~md~obsidian"}
+    myworkspace = {
+        { 
+            name = "iCloud~md~obsidian",
+            path = "~/iCloudDrive/iCloud~md~obsidian" }
+    }
 elseif utils.os_name == "Darwin" then
     myevents = macos_events
-    myworkspace = {["Documents"] = "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents"}
+    myworkspace = {
+        { 
+            name = "Documents",
+            path = "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents"
+        }
+    }
 else
     myevents = macos_events
 end
