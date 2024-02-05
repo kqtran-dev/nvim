@@ -17,8 +17,8 @@ local workspaces_paths = {
 }
 
 local windows_events = {
-    "BufReadPre " .. "\\**\\main\\**.md",
-    "BufNewFile " .. "\\**\\main\\**.md",
+    "BufReadPre " .. "*.md",
+    "BufNewFile " .. "*.md",
 }
 
 local macos_events = {
@@ -26,12 +26,29 @@ local macos_events = {
     "BufNewFile " .. "/**/main/**.md",
 }
 
-if utils.os_name == "Windows NT" then
+if utils.os_name == "Windows_NT" then
     myevents = windows_events
     myworkspace = {
         { 
             name = "iCloud~md~obsidian",
-            path = "~/iCloudDrive/iCloud~md~obsidian" }
+            path = "C:\\Users\\k\\iCloudDrive\\iCloud~md~obsidian"
+        },
+        {
+            name = "iCloud~md~obsidian",
+            path = "C:/Users/k/iCloudDrive/iCloud~md~obsidian"
+        },
+        {
+            name = "iCloud~md~obsidian",
+            path = "C:/Users/k/iCloudDrive/iCloud~md~obsidian"
+        },
+        {
+            name = "iCloud~md~obsidian",
+            path = "~/iCloudDrive/iCloud~md~obsidian"
+        },
+        {
+            name = "iCloud~md~obsidian",
+            path = "~\\iCloudDrive\\iCloud~md~obsidian"
+        }
     }
 elseif utils.os_name == "Darwin" then
     myevents = macos_events
@@ -59,7 +76,7 @@ return {
   "epwalsh/obsidian.nvim",
   version = "*",  -- recommended, use latest release instead of latest commit
   lazy = true,
-  --ft = "markdown",
+  ft = "markdown",
   -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
   -- event = {
   --     "BufReadPre " .. "/**/main/**.md",
