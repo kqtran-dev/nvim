@@ -9,6 +9,13 @@ if utils.os_name == "Windows_NT" then
 end
 
 vim.api.nvim_set_keymap('n', '<leader>po', ':ObsidianSearch<CR>', {noremap = true, silent = true})
+if utils.os_name == "Linux" then
+    myevents = linux_events
+    myworkspace = {
+        name = "iCloud~md~obsidian",
+        path = "/c/Users/k/iCloudDrive/iCloud~md~obsidian"
+    }
+end
 if utils.os_name == "Windows_NT" then
     myevents = windows_events
     myworkspace = {
