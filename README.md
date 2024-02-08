@@ -26,6 +26,11 @@ AppImages require FUSE to run.
 `sudo apt install fuse libfuse2`
 
 ### dependencies
+#### make
+`sudo apt install make`
+
+`sudo apt install nodejs`
+
 #### telescope
 `sudo apt install clang`
 
