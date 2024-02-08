@@ -17,6 +17,14 @@
 ## Linux
 `stow -d ~/.config -t ~ nvim`
 
+If using AppImage:
+
+dlopen(): error loading libfuse.so.2
+
+AppImages require FUSE to run.
+
+`sudo apt install fuse libfuse2`
+
 ### dependencies
 #### telescope
 `sudo apt install clang`
