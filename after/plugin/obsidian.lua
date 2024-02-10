@@ -1,5 +1,5 @@
 local utils = require("core.utils")
-
+vim.opt.spell = true
 vim.opt.wrap = true
 
 vim.keymap.set('n', 'pf', 'builtin.ObsidianSearch<CR>', {noremap = true, silent = true})
@@ -16,6 +16,17 @@ if utils.os_name == "Linux" then
         path = "/c/Users/k/iCloudDrive/iCloud~md~obsidian"
     }
 end
+
+local windows_events = {
+    "BufReadPre " .. "*.md",
+    "BufNewFile " .. "*.md",
+}
+
+local macos_events = {
+    "BufReadPre " .. "/**/main/**.md",
+    "BufNewFile " .. "/**/main/**.md",
+}
+
 if utils.os_name == "Windows_NT" then
     myevents = windows_events
     myworkspace = {

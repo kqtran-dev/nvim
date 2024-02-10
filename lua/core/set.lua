@@ -2,6 +2,7 @@ vim.opt.guicursor = ""
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
+
 -- perf
 vim.opt.shadafile = "NONE"
 
@@ -13,6 +14,10 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
 
+-- block mode changes
+vim.opt.virtualedit = "block"
+
+-- swapfiles and backup / undo
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.cache/vim/undodir"
@@ -21,6 +26,7 @@ vim.opt.undofile = true
 -- search
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
+vim.opt.inccommand = "split"
 
 vim.opt.ignorecase = true
 vim.opt.termguicolors = true
@@ -34,6 +40,10 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 
 vim.opt.list = true
+
+vim.opt.splitbelow = true -- split below instead of above
+
+vim.opt.scrolloff = 999 -- keep cursor centered
 
 vim.opt.listchars = "tab:⇤–⇥,trail:·,extends:⇢,precedes:⇠,space:·"
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"

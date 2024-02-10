@@ -16,16 +16,6 @@ local workspaces_paths = {
     ["obsidian"] = "/home/k/obsidian",
 }
 
-local windows_events = {
-    "BufReadPre " .. "*.md",
-    "BufNewFile " .. "*.md",
-}
-
-local macos_events = {
-    "BufReadPre " .. "/**/main/**.md",
-    "BufNewFile " .. "/**/main/**.md",
-}
-
 if utils.os_name == "Windows_NT" then
     myevents = windows_events
     myworkspace = {
@@ -88,7 +78,4 @@ return {
     'hrsh7th/nvim-cmp',
     'nvim-telescope/telescope.nvim'
   },
-  opts = {
-      workspaces = myworkspace
-    },
 }
