@@ -1,5 +1,7 @@
 local utils = require("core.utils")
 vim.opt.spell = true
+vim.opt.spelllang = "en_us"
+vim.opt.spellcapcheck = ""
 vim.opt.wrap = true
 
 -- vim.keymap.set('n', 'pf', 'builtin.ObsidianSearch<CR>', {noremap = true, silent = true})
