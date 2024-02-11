@@ -42,6 +42,7 @@ vim.opt.colorcolumn = "80"
 vim.opt.list = true
 
 vim.opt.splitbelow = true -- split below instead of above
+vim.opt.splitright = true -- split below instead of above
 
 vim.opt.scrolloff = 999 -- keep cursor centered
 
