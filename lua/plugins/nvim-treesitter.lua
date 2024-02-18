@@ -5,7 +5,6 @@ return {
         build = ":TSUpdate",
         dependencies = {
             "nvim-treesitter/nvim-treesitter-textobjects",
-            "windwp/nvim-ts-autotag",
         },
         config = function()
             local treesitter = require("nvim-treesitter.configs")
@@ -13,26 +12,14 @@ return {
                 highlight = { enable = true },
                 indent = { enable = true },
                 autotag = { enable = true },
+                prefer_git = false,
+                compilers = { "clangd" }, 
                 ensure_installed = {
-                    "bash",
                     "c",
-                    "css",
-                    "dockerfile",
-                    "gitignore",
-                    "html",
-                    "ini",
-                    "json",
-                    "latex",
                     "lua",
-                    "markdown",
-                    "markdown_inline",
-                    "python",
                     "query",
-                    "sql",
-                    "ssh_config",
                     "vim",
                     "vimdoc",
-                    "yaml",
                 },
                 auto_install = true,
                 incremental_selection = {
@@ -90,6 +77,4 @@ return {
             -- enable nvim-ts-context-commentstring plugin for commenting tsx and jsx
         end,
     },
-    'nvim-treesitter/nvim-treesitter-textobjects',
 }
-

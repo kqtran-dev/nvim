@@ -3,93 +3,36 @@ vim.opt.spell = true
 vim.opt.spelllang = "en_us"
 vim.opt.spellcapcheck = ""
 vim.opt.wrap = true
+vim.opt.colorcolumn = "0"
 
--- vim.keymap.set('n', 'pf', 'builtin.ObsidianSearch<CR>', {noremap = true, silent = true})
-
-if utils.os_name == "Windows_NT" then
-    vim.api.nvim_set_keymap('n', 'gf', ':ObsidianFollowLink<CR>', {noremap = true, silent = true})
-end
-
-vim.api.nvim_set_keymap('n', '<leader>po', ':ObsidianSearch<CR>', {noremap = true, silent = true})
-if utils.os_name == "Linux" then
-    myevents = linux_events
-    myworkspace = {
-        name = "iCloud~md~obsidian",
-        path = "/c/Users/k/iCloudDrive/iCloud~md~obsidian"
-    }
-end
-
-local windows_events = {
-    "BufReadPre " .. "*.md",
-    "BufNewFile " .. "*.md",
-}
-
-local macos_events = {
-    "BufReadPre " .. "/**/main/**.md",
-    "BufNewFile " .. "/**/main/**.md",
+local workspaces_paths = {
+    ["Documents"] = "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents", -- macOS
+    ["parker"] = "C:\\Users\\568879\\OneDrive - parkercorp\\obsidian\\parker", -- Windows
 }
 
 if utils.os_name == "Windows_NT" then
-    myevents = windows_events
     myworkspace = {
-        { 
-            name = "iCloud~md~obsidian",
-            path = "C:\\Users\\k\\iCloudDrive\\iCloud~md~obsidian"
-        },
         {
-            name = "iCloud~md~obsidian",
-            path = "C:/Users/k/iCloudDrive/iCloud~md~obsidian"
-        },
-        {
-            name = "iCloud~md~obsidian",
-            path = "C:/Users/k/iCloudDrive/iCloud~md~obsidian"
-        },
-        {
-            name = "iCloud~md~obsidian",
-            path = "~/iCloudDrive/iCloud~md~obsidian"
-        },
-        {
-            name = "iCloud~md~obsidian",
-            path = "~\\iCloudDrive\\iCloud~md~obsidian"
+        name = "parker",
+        path = "C:\\Users\\568879\\OneDrive - parkercorp\\obsidian\\parker"
         }
     }
-elseif utils.os_name == "Darwin" then
-    myevents = macos_events
-    myworkspace = {
-        { 
-            name = "Documents",
-            path = "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents"
-        }
-    }
-else
-    myevents = macos_events
 end
 
-require("obsidian").setup(
-    {
-        workspaces = myworkspace,
-        -- A list of workspace names, paths, and configuration overrides.
-        -- If you use the Obsidian app, the 'path' of a workspace should generally be
-        -- your vault root (where the `.obsidian` folder is located).
-        notes_subdir = "notes",
+function setup_workspaces()
+    local workspaces = {}
+    for name, path in pairs(workspaces_paths) do
+        if utils.path_exists(path) then
+            table.insert(workspaces, { name = name, path = path })
+        end
+    end
+    return workspaces
+end
 
-        -- Optional, set the log level for obsidian.nvim. This is an integer corresponding to one of the log
-        -- levels defined by "vim.log.levels.*".
-        log_level = vim.log.levels.INFO,
-
-        daily_notes = {
-            -- Optional, if you keep daily notes in a separate directory.
-            folder = "notes/dailies",
-            -- Optional, if you want to change the date format for the ID of daily notes.
-            date_format = "%Y-%m-%d",
-            -- Optional, if you want to change the date format of the default alias of daily notes.
-            alias_format = "%B %-d, %Y",
-            -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
-            template = nil
-        },
-
-        -- Optional, completion of wiki links, local markdown links, and tags using nvim-cmp.
-        completion = {
+require("obsidian").setup({
+    workspaces = myworkspace,
+    log_level = vim.log.levels.INFO,
+    completion = {
             -- Set to false to disable completion.
             nvim_cmp = true,
 
@@ -119,10 +62,7 @@ require("obsidian").setup(
             -- Mutually exclusive with 'prepend_note_id' and 'prepend_note_path'.
             use_path_only = false,
         },
-
-        -- Optional, configure key mappings. These are the defaults. If you don't want to set any keymappings this
-        -- way then set 'mappings = {}'.
-        mappings = {
+mappings = {
             -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
             ["gf"] = {
                 action = function()
@@ -139,24 +79,19 @@ require("obsidian").setup(
             },
         },
 
-        -- Optional, customize how names/IDs for new notes are created.
-        note_id_func = function(title)
-            -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
-            -- In this case a note with the title 'My new note' will be given an ID that looks
-            -- like '1657296016-my-new-note', and therefore the file name '1657296016-my-new-note.md'
-            local suffix = ""
-            if title ~= nil then
-                -- If title is given, transform it into valid file name.
-                suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-            else
-                -- If title is nil, just add 4 random uppercase letters to the suffix.
-                for _ = 1, 4 do
-                    suffix = suffix .. string.char(math.random(65, 90))
-                end
+    note_id_func = function(title)
+        local suffix = ""
+        if title ~= nil then
+            suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+        else
+            for _ = 1, 4 do
+                suffix = suffix .. string.char(math.random(65, 90))
             end
-            return tostring(os.time()) .. "-" .. suffix
-        end,
-
+        end
+        return tostring(suffix)
+    end,
+    disable_frontmatter = false,
+    
         -- Optional, customize the default name or prefix when pasting images via `:ObsidianPasteImg`.
         image_name_func = function()
             -- Prefix image names with timestamp.
@@ -313,7 +248,4 @@ require("obsidian").setup(
         -- In general you should be using the native parser unless you run into a bug with it, in which
         -- case you can temporarily switch to the "yq" parser until the bug is fixed.
         yaml_parser = "native",
-    }
-)
-
-
+})
