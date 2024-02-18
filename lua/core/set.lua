@@ -57,8 +57,8 @@ vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
 -- clipboard
 --vim.opt.clipboard:prepend({ "unnamed", "unnamedplus" })
 vim.opt.clipboard = ""
--- sync with system clipboard on focus
 
+-- sync with system clipboard on focus
 vim.api.nvim_create_autocmd({ "FocusGained" }, {
   pattern = { "*" },
   command = [[call setreg("@", getreg("+"))]],
@@ -73,3 +73,9 @@ vim.api.nvim_create_autocmd({ "FocusLost" }, {
 
 -- obsidian
 vim.opt.conceallevel = 1
+
+vim.api.nvim_create_autocmd("InsertLeave", {
+    pattern = "*.md",
+    command = "write",
+})
+
