@@ -75,7 +75,8 @@ vim.api.nvim_create_autocmd({ "FocusLost" }, {
 vim.opt.conceallevel = 1
 
 vim.api.nvim_create_autocmd("InsertLeave", {
-    pattern = "*",
-    command = "write",
+     pattern = "*",
+     command = "write",
 })
+
 
