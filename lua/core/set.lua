@@ -8,6 +8,7 @@ vim.opt.autochdir = true
 -- perf
 vim.opt.shadafile = "NONE"
 
+
 -- wraps and tabs
 vim.opt.smartindent = true
 vim.opt.wrap = false

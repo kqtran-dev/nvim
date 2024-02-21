@@ -13,7 +13,7 @@ local workspaces_paths = {
 if utils.os_name == "Darwin" then
     myworkspace = {
         {
-        name = "Darwin",
+        name = "Documents",
         path = "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents"
         }
     }
@@ -24,6 +24,15 @@ if utils.os_name == "Windows_NT" then
         {
         name = "parker",
         path = "C:\\Users\\568879\\OneDrive - parkercorp\\obsidian\\parker"
+        }
+    }
+end
+
+if utils.path_exists("C:\\Users\\568879\\OneDrive - parkercorp\\obsidian\\parker") then
+    myworkspace = {
+        {
+            name = "parker",
+            path = "C:\\Users\\568879\\OneDrive - parkercorp\\obsidian\\parker"
         }
     }
 end
@@ -49,31 +58,30 @@ return {
         'nvim-telescope/telescope.nvim'
     },
     ft = "markdown",
-
-opts = {
-    workspaces = myworkspace,
-    log_level = vim.log.levels.INFO,
-    new_notes_location = "current_dir",
-    preferred_link_style = "wiki",
-    completion = {
-        nvim_cmp = true,
-        min_chars = 2,
-    },
-    wiki_link_func = function(opts)
-        if opts.id == nil then
-            return string.format("[[%s]]", opts.label)
-        elseif opts.label ~= opts.id then
-            return string.format("[[%s|%s]]", opts.id, opts.label)
-        else
-            return string.format("[[%s]]", opts.id)
-        end
-    end,
-    mappings = {
-        -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
-        ["gf"] = {
-            action = function()
-                return require("obsidian").util.gf_passthrough()
-            end,
+    opts = {
+        workspaces = myworkspace,
+        log_level = vim.log.levels.INFO,
+        new_notes_location = "current_dir",
+        preferred_link_style = "wiki",
+        completion = {
+            nvim_cmp = true,
+            min_chars = 2,
+        },
+        wiki_link_func = function(opts)
+            if opts.id == nil then
+                return string.format("[[%s]]", opts.label)
+            elseif opts.label ~= opts.id then
+                return string.format("[[%s|%s]]", opts.id, opts.label)
+            else
+                return string.format("[[%s]]", opts.id)
+            end
+        end,
+        mappings = {
+            -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
+            ["gf"] = {
+                action = function()
+                    return require("obsidian").util.gf_passthrough()
+                end,
                 opts = { noremap = false, expr = true, buffer = true },
             },
             -- Toggle check-boxes.
