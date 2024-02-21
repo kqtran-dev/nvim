@@ -5,6 +5,9 @@ vim.opt.spellcapcheck = ""
 vim.opt.wrap = true
 vim.opt.colorcolumn = "0"
 
+
+vim.keymap.set('n', '<leader>po', ':ObsidianSearch<CR>', {noremap = true, silent = true})
+
 local workspaces_paths = {
     ["Documents"] = "/Users/k/Library/Mobile Documents/iCloud~md~obsidian/Documents", -- macOS
     ["parker"] = "C:\\Users\\568879\\OneDrive - parkercorp\\obsidian\\parker", -- Windows
