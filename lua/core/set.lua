@@ -77,7 +77,7 @@ vim.opt.conceallevel = 1
 
 vim.api.nvim_create_autocmd("InsertLeave", {
      pattern = "*",
-     command = "write",
+     command = "update",
 })
 
 -- netrw
