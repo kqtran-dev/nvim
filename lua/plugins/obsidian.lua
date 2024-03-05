@@ -134,21 +134,21 @@ return {
         end,
 
 
-        -- Optional, customize the backlinks interface.
-        backlinks = {
-            -- The default height of the backlinks location list.
-            height = 10,
-            -- Whether or not to wrap lines.
-            wrap = true,
-        },
+        -- -- Optional, customize the backlinks interface.
+        -- backlinks = {
+        --     -- The default height of the backlinks location list.
+        --     height = 10,
+        --     -- Whether or not to wrap lines.
+        --     wrap = true,
+        -- },
 
         -- Optional, customize the tags interface.
-        tags = {
-            -- The default height of the tags location list.
-            height = 10,
-            -- Whether or not to wrap lines.
-            wrap = true,
-        },
+        -- tags = {
+        --     -- The default height of the tags location list.
+        --     height = 10,
+        --     -- Whether or not to wrap lines.
+        --     wrap = true,
+        -- },
 
         -- Optional, by default when you use `:ObsidianFollowLink` on a link to an external
         -- URL it will be ignored but you can customize this behavior here.
@@ -216,7 +216,7 @@ return {
             -- external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
             reference_text = { hl_group = "ObsidianRefText" },
             highlight_text = { hl_group = "ObsidianHighlightText" },
-            tags = { hl_group = "ObsidianTag" },
+            -- tags = { hl_group = "ObsidianTag" },
             hl_groups = {
                 -- The options are passed directly to `vim.api.nvim_set_hl()`. See `:help nvim_set_hl`.
                 ObsidianTodo = { bold = true, fg = "#f78c6c" },
