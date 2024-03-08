@@ -28,3 +28,6 @@ vim.keymap.set("x", "<leader>p", "\"_dP")
 
 vim.keymap.set("n", "<leader>s", ":%s/\\<<C-R><C-w>\\>/<C-r><C-w><Left><Left><Left>")
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+-- try to mimic ctrl + backspace behavior // undoing this because C-W is more vim-like
+-- vim.api.nvim_set_keymap('i', '<C-H>', '<C-W>', {noremap = true})
