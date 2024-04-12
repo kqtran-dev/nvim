@@ -87,3 +87,5 @@ vim.g.netrw_list_hide = '*.swp,.git,.DS_Store,*.o,*.pyc,__pycache__'
 vim.g.netrw_hide = 1
 -- vim.g.loaded_netrwPlugin = 0
 vim.g.netrw_banner = 0
+
+vim.keymap.set('n', '<Leader>q', '<C-R><C-R>');
