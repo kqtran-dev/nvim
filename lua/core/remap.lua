@@ -31,3 +31,7 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- try to mimic ctrl + backspace behavior // undoing this because C-W is more vim-like
 -- vim.api.nvim_set_keymap('i', '<C-H>', '<C-W>', {noremap = true})
+
+vim.keymap.set('n', '<Leader>q', '<C-R><C-R>');
+vim.keymap.set('n', '<leader>b', ':ls<CR>:b<Space>', { noremap = true, silent = false })
+
