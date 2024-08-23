@@ -58,18 +58,30 @@ vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
 -- clipboard
 --vim.opt.clipboard:prepend({ "unnamed", "unnamedplus" })
 vim.opt.clipboard = ""
-
--- sync with system clipboard on focus
-vim.api.nvim_create_autocmd({ "FocusGained" }, {
-  pattern = { "*" },
-  command = [[call setreg("@", getreg("+"))]],
-})
-
--- sync with system clipboard on focus
-vim.api.nvim_create_autocmd({ "FocusLost" }, {
-  pattern = { "*" },
-  command = [[call setreg("+", getreg("@"))]], 
-})
+vim.g.clipboard = {
+    name = "win32yank-wsl",
+    copy = {
+        ["+"] = "win32yank.exe -i --crlf",
+        ["*"] = "win32yank.exe -i --crlf",
+    },
+    paste = {
+        ["+"] = "win32yank.exe -o --lf",
+        ["*"] = "win32yank.exe -o --lf",
+    },
+    cache_enabled = true,
+}
+-- -- sync with system clipboard on focus 
+-- removing 2024-08-21 - this has to have a performance impact...
+-- vim.api.nvim_create_autocmd({ "FocusGained" }, {
+--   pattern = { "*" },
+--   command = [[call setreg("@", getreg("+"))]],
+-- })
+--
+-- -- sync with system clipboard on focus
+-- vim.api.nvim_create_autocmd({ "FocusLost" }, {
+--   pattern = { "*" },
+--   command = [[call setreg("+", getreg("@"))]], 
+-- })
 -- set system clipboard
 
 -- obsidian
@@ -89,3 +101,4 @@ vim.g.netrw_hide = 1
 vim.g.netrw_banner = 0
 
 vim.keymap.set('n', '<Leader>q', '<C-R><C-R>');
+--vim.g.loaded_matchparen = 1 

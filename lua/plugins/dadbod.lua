@@ -17,6 +17,7 @@ return {
         vim.g.db_ui_use_nerd_fonts = 1
         vim.g.dbs = {
             flightdb = "mysql://metabase@k/flightdb",
+            bwf064d01 = "sqlserver://bwfsa@bwf064d01"
         }
     end,
 }
