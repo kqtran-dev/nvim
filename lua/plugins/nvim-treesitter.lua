@@ -13,7 +13,7 @@ return {
                 indent = { enable = true },
                 autotag = { enable = true },
                 prefer_git = false,
-                compilers = { "clangd" }, 
+                compilers = { "zig", "clangd" }, 
                 ensure_installed = {
                     "c",
                     "lua",
