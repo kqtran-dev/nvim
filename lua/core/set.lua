@@ -57,19 +57,33 @@ vim.opt.listchars = "tab:⇤–⇥,trail:·,extends:⇢,precedes:⇠,space:·"
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
 -- clipboard
 --vim.opt.clipboard:prepend({ "unnamed", "unnamedplus" })
-vim.opt.clipboard = ""
-vim.g.clipboard = {
-    name = "win32yank-wsl",
-    copy = {
-        ["+"] = "win32yank.exe -i --crlf",
-        ["*"] = "win32yank.exe -i --crlf",
-    },
-    paste = {
-        ["+"] = "win32yank.exe -o --lf",
-        ["*"] = "win32yank.exe -o --lf",
-    },
-    cache_enabled = true,
-}
+vim.opt.clipboard = "unnamedplus"
+if vim.fn.has('wsl') == 1 then
+    vim.g.clipboard = {
+        name = 'WslClipboard',
+        copy = {
+            ['+'] = 'clip.exe',
+            ['*'] = 'clip.exe',
+        },
+        paste = {
+            ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+            ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+        },
+        cache_enabled = 0,
+    }
+end
+-- vim.g.clipboard = {
+--     name = "win32yank-wsl",
+--     copy = {
+--         ["+"] = "win32yank.exe -i --crlf",
+--         ["*"] = "win32yank.exe -i --crlf",
+--     },
+--     paste = {
+--         ["+"] = "win32yank.exe -o --lf",
+--         ["*"] = "win32yank.exe -o --lf",
+--     },
+--     cache_enabled = true,
+-- }
 -- -- sync with system clipboard on focus 
 -- removing 2024-08-21 - this has to have a performance impact...
 -- vim.api.nvim_create_autocmd({ "FocusGained" }, {
