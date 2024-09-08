@@ -5,6 +5,7 @@ vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.autochdir = true
+
 -- perf
 vim.opt.shadafile = "NONE"
 
@@ -55,6 +56,7 @@ vim.opt.scrolloff = 999 -- keep cursor centered
 
 vim.opt.listchars = "tab:⇤–⇥,trail:·,extends:⇢,precedes:⇠,space:·"
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
+
 -- clipboard
 --vim.opt.clipboard:prepend({ "unnamed", "unnamedplus" })
 vim.opt.clipboard = "unnamedplus"
@@ -114,5 +116,5 @@ vim.g.netrw_hide = 1
 -- vim.g.loaded_netrwPlugin = 0
 vim.g.netrw_banner = 0
 
-vim.keymap.set('n', '<Leader>q', '<C-R><C-R>');
+-- not sure what this is for 
 --vim.g.loaded_matchparen = 1 
