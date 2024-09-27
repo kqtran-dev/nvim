@@ -118,3 +118,5 @@ vim.g.netrw_banner = 0
 
 -- not sure what this is for 
 --vim.g.loaded_matchparen = 1 
+--
+--autocmd FileType json setlocal formatprg=jq
