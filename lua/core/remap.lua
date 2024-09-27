@@ -34,3 +34,8 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 vim.keymap.set('n', '<Leader>q', '<C-R><C-R>');
 vim.keymap.set('n', '<leader>b', ':ls<CR>:b<Space>', { noremap = true, silent = false })
 
+-- Map gh to move to the beginning of the line
+vim.api.nvim_set_keymap('n', 'gh', '^', { noremap = true, silent = true })
+
+-- Map gl to move to the end of the line
+vim.api.nvim_set_keymap('n', 'gl', 'g_', { noremap = true, silent = true })
