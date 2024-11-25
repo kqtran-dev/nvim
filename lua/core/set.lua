@@ -27,6 +27,19 @@ vim.opt.backup = false
 if utils.os_name == "Windows_NT" then
     vim.opt.undodir = os.getenv("LOCALAPPDATA") .. "/.cache/vim/undodir"
     vim.g.python3_host_prog = os.getenv("LOCALAPPDATA") .. "Microsoft/WindowsApps/python.exe"
+    -- set clipboard stuff
+    vim.g.clipboard = {
+        name = 'win32yank',
+        copy = {
+            ["+"] = 'win32yank.exe -i --crlf',
+            ["*"] = 'win32yank.exe -i --crlf',
+        }, 
+        paste = {
+            ["+"] = 'win32yank.exe -o --lf',
+            ["*"] = 'win32yank.exe -o --lf',
+        },
+        cache_enabled = 0,
+    }
 else
     vim.opt.undodir = os.getenv("HOME") .. "/.cache/vim/undodir"
 end
@@ -75,30 +88,6 @@ if vim.fn.has('wsl') == 1 then
         cache_enabled = 0,
     }
 end
--- vim.g.clipboard = {
---     name = "win32yank-wsl",
---     copy = {
---         ["+"] = "win32yank.exe -i --crlf",
---         ["*"] = "win32yank.exe -i --crlf",
---     },
---     paste = {
---         ["+"] = "win32yank.exe -o --lf",
---         ["*"] = "win32yank.exe -o --lf",
---     },
---     cache_enabled = true,
--- }
--- -- sync with system clipboard on focus 
--- removing 2024-08-21 - this has to have a performance impact...
--- vim.api.nvim_create_autocmd({ "FocusGained" }, {
---   pattern = { "*" },
---   command = [[call setreg("@", getreg("+"))]],
--- })
---
--- -- sync with system clipboard on focus
--- vim.api.nvim_create_autocmd({ "FocusLost" }, {
---   pattern = { "*" },
---   command = [[call setreg("+", getreg("@"))]], 
--- })
 -- set system clipboard
 
 -- obsidian
