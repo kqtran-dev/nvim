@@ -26,6 +26,7 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 if utils.os_name == "Windows_NT" then
     vim.opt.undodir = os.getenv("LOCALAPPDATA") .. "/.cache/vim/undodir"
+    vim.g.python3_host_prog = os.getenv("LOCALAPPDATA") .. "Microsoft/WindowsApps/python.exe"
 else
     vim.opt.undodir = os.getenv("HOME") .. "/.cache/vim/undodir"
 end
