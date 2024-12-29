@@ -91,7 +91,7 @@ end
 -- set system clipboard
 
 -- obsidian
-vim.opt.conceallevel = 1
+vim.opt.conceallevel = 0 -- this is super annoying when trying to read json
 
 vim.api.nvim_create_autocmd("InsertLeave", {
      pattern = "*.md",

@@ -14,4 +14,11 @@ return {
       { "<leader>4", function() require("harpoon"):list():select(4) end, desc = "harpoon to file 4", },
       { "<leader>5", function() require("harpoon"):list():select(5) end, desc = "harpoon to file 5", },
     },
+    settings = {
+        save_on_toggle = true,
+        sync_on_ui_close = true,
+        key = function()
+        return vim.loop.cwd()
+        end,
+    },
 }
