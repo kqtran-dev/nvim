@@ -40,9 +40,3 @@ vim.api.nvim_set_keymap('n', 'gh', '^', { noremap = true, silent = true })
 -- Map gl to move to the end of the line
 vim.api.nvim_set_keymap('n', 'gl', 'g_', { noremap = true, silent = true })
 
--- Telescope
--- local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = 'Telescope search files' })
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
