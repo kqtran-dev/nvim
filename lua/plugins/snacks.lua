@@ -14,7 +14,7 @@ return {
     },
     picker = { enabled = true },
     quickfile = { enabled = true },
-    scroll = { enabled = true },
+    -- scroll = { enabled = true },
     statuscolumn = { enabled = true },
     words = { enabled = true },
     styles = {
@@ -41,7 +41,11 @@ return {
     { "<c-_>",      function() Snacks.terminal() end, desc = "which_key_ignore" },
     { "]]",         function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference", mode = { "n", "t" } },
     { "[[",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference", mode = { "n", "t" } },
-    {
+    { "<leader>ls", function() Snacks.picker.lsp_symbols(
+            { layout = { preset = "vscode", preview = "main" }}
+        ) end,
+            desc = "LSP Symbols Picker" },
+        {
       "<leader>N",
       desc = "Neovim News",
       function()
