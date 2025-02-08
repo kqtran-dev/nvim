@@ -137,8 +137,6 @@ g.netrw_banner = 0
 -- Restore cursor to file position in previous editing session
     -- highlights yanked text
 
--- folding
-opt.foldlevelstart=99 -- start with file unfolded
 -----------------------------------------------------------
 -- Startup
 -----------------------------------------------------------
