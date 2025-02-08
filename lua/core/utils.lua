@@ -1,3 +1,6 @@
+--
+-- Settings for neovim config files
+--
 local M = {}
     M.os_name = vim.loop.os_uname().sysname
 

@@ -1,33 +1,74 @@
 local utils = require("core.utils")
+local g = vim.g       -- Global variables
+local opt = vim.opt   -- Set options (global/buffer/windows-scoped)
 
-vim.opt.nu = true
-vim.opt.relativenumber = true
-vim.opt.autochdir = true
+-----------------------------------------------------------
+-- General
+-----------------------------------------------------------
+opt.nu = true
+opt.autochdir = true
 
+------------------------------------------------------------
+-- Memory, CPU
+----------------------------------------------------------
 -- perf
-vim.opt.shadafile = "NONE"
-
-
--- wraps and tabs
-vim.opt.smartindent = true
-vim.opt.wrap = false
-vim.opt.expandtab = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.smartindent = true
-
--- block mode changes
-vim.opt.virtualedit = "block"
+opt.shadafile = "NONE"
 
 -- swapfiles and backup / undo
-vim.opt.swapfile = false
-vim.opt.backup = false
--- clipboard for Windows
+opt.swapfile = false
+opt.backup = false
+
+-- autocomplete
+opt.completeopt=noinsert,menuone,noselect
+opt.lazyredraw = true       -- Faster scrolling
+
+-----------------------------------------------------------
+-- Tabs, indent
+-----------------------------------------------------------
+opt.smartindent = true
+opt.wrap = false
+opt.expandtab = true
+opt.tabstop = 4
+opt.shiftwidth = 4
+opt.smartindent = true
+
+-- block mode changes
+opt.virtualedit = "block"
+
+-----------------------------------------------------------
+-- Neovim UI
+-----------------------------------------------------------
+opt.number = true           -- Show line number
+opt.relativenumber = true   -- Relative line numbers
+opt.showmatch = true        -- Highlight matching parenthesis
+opt.foldmethod = 'marker'   -- Enable folding (default 'foldmarker')
+opt.colorcolumn = '80'      -- Line length marker at 80 columns
+opt.splitright = true       -- Vertical split to the right
+opt.splitbelow = true       -- Horizontal split to the bottom
+-- search
+opt.ignorecase = true       -- Ignore case letters when search
+opt.hlsearch = false
+opt.incsearch = true
+opt.inccommand = "split"
+opt.smartcase = true        -- Ignore lowercase for the whole pattern
+opt.linebreak = true        -- Wrap on word boundary
+opt.termguicolors = true    -- Enable 24-bit RGB colors
+opt.laststatus=3            -- Set global statusline
+opt.signcolumn = "yes"
+-----------------------------------------------------------
+-- clipboard settings
+-----------------------------------------------------------
+-- opt.clipboard = "unnamedplus" -- leaving commented - keep OS and vim clipboards separate
+-- instead, use hotkeys
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+-- Windows OS
 if utils.os_name == "Windows_NT" then
-    vim.opt.undodir = os.getenv("LOCALAPPDATA") .. "/.cache/vim/undodir"
-    vim.g.python3_host_prog = os.getenv("LOCALAPPDATA") .. "Microsoft/WindowsApps/python.exe"
+    opt.undodir = os.getenv("LOCALAPPDATA") .. "/.cache/vim/undodir"
+    g.python3_host_prog = os.getenv("LOCALAPPDATA") .. "Microsoft/WindowsApps/python.exe"
     -- set clipboard stuff
-    vim.g.clipboard = {
+    g.clipboard = {
         name = 'win32yank',
         copy = {
             ["+"] = 'win32yank.exe -i --crlf',
@@ -40,21 +81,12 @@ if utils.os_name == "Windows_NT" then
         cache_enabled = 0,
     }
 else
-    vim.opt.undodir = os.getenv("HOME") .. "/.cache/vim/undodir"
+    opt.undodir = os.getenv("HOME") .. "/.cache/vim/undodir"
 end
 
--- clipboard
---vim.opt.clipboard:prepend({ "unnamed", "unnamedplus" })
--- vim.opt.clipboard = "unnamedplus" -- keep OS and vim clipboards separate
--- instead, use hotkeys
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
-
-vim.keymap.set("n", "<leader>p", [["+p]])
-vim.keymap.set("n", "<leader>P", [["+P]])
-
+-- WSL
 if vim.fn.has('wsl') == 1 then
-    vim.g.clipboard = {
+    g.clipboard = {
         name = 'WslClipboard',
         copy = {
             ['+'] = 'clip.exe',
@@ -83,75 +115,65 @@ end
 -- }
 -- set system clipboard
 
+opt.undofile = true
+opt.cursorline = true
+opt.updatetime = 50
+opt.list = true
+opt.scrolloff = 999 -- keep cursor centered
+opt.listchars = "tab:⇤–⇥,trail:·,extends:⇢,precedes:⇠,space:·"
+opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
+opt.conceallevel = 0 -- this is super annoying when trying to read json
 
-vim.opt.undofile = true
-
--- search
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-vim.opt.inccommand = "split"
-
-vim.opt.ignorecase = true
-vim.opt.termguicolors = true
-
-vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
-vim.opt.cursorline = true
-
-vim.opt.updatetime = 50
-
-vim.opt.colorcolumn = "80"
-
-vim.opt.list = true
-
-vim.opt.splitbelow = true -- split below instead of above
-vim.opt.splitright = true -- split below instead of above
-
-vim.opt.scrolloff = 999 -- keep cursor centered
-
-vim.opt.listchars = "tab:⇤–⇥,trail:·,extends:⇢,precedes:⇠,space:·"
-vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
--- obsidian
-vim.opt.conceallevel = 0 -- this is super annoying when trying to read json
-
-vim.api.nvim_create_autocmd("InsertLeave", {
-     pattern = "*.md",
-     command = "update",
-})
-
+-----------------------------------------------------------
 -- netrw
-vim.g.netrw_banner = 0
-
-vim.g.netrw_list_hide = '*.swp,.git,.DS_Store,*.o,*.pyc,__pycache__'
-vim.g.netrw_hide = 1
+-----------------------------------------------------------
+g.netrw_banner = 0
+g.netrw_list_hide = '*.swp,.git,.DS_Store,*.o,*.pyc,__pycache__'
+g.netrw_hide = 1
 -- vim.g.loaded_netrwPlugin = 0
-vim.g.netrw_banner = 0
+g.netrw_banner = 0
 
--- not sure what this is for 
---vim.g.loaded_matchparen = 1 
---
 --autocmd FileType json setlocal formatprg=jq
 -- Restore cursor to file position in previous editing session
-vim.api.nvim_create_autocmd("BufReadPost", {
-    callback = function(args)
-        local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
-        local line_count = vim.api.nvim_buf_line_count(args.buf)
-        if mark[1] > 0 and mark[1] <= line_count then
-            vim.cmd('normal! g`"zz')
-        end
-    end,
-})
     -- highlights yanked text
-    vim.api.nvim_create_autocmd("TextYankPost", {
-        callback = function()
-            vim.highlight.on_yank({
-                higroup = "IncSearch",
-                timeout = 40,
-            })
-        end,
-    })
-
 
 -- folding
-vim.opt.foldlevelstart=99 -- start with file unfolded
+opt.foldlevelstart=99 -- start with file unfolded
+-----------------------------------------------------------
+-- Startup
+-----------------------------------------------------------
+-- Disable nvim intro
+opt.shortmess:append "sI"
 
+-- Disable builtin plugins
+local disabled_built_ins = {
+   "2html_plugin",
+   "getscript",
+   "getscriptPlugin",
+   "gzip",
+   "logipat",
+   -- "netrw",
+   -- "netrwPlugin",
+   "netrwSettings",
+   "netrwFileHandlers",
+   "matchit",
+   "tar",
+   "tarPlugin",
+   "rrhelper",
+   "spellfile_plugin",
+   "vimball",
+   "vimballPlugin",
+   "zip",
+   "zipPlugin",
+   "tutor",
+   "rplugin",
+   "synmenu",
+   "optwin",
+   "compiler",
+   "bugreport",
+   -- "ftplugin",
+}
+
+for _, plugin in pairs(disabled_built_ins) do
+   g["loaded_" .. plugin] = 1
+end

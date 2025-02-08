@@ -1,4 +1,5 @@
 require("core.set")
 require("core.remap")
 require("core.utils")
+require("core.autocmds")
 require("core.lazy")
