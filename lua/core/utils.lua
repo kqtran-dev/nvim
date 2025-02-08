@@ -31,5 +31,21 @@ function M.foldexpr()
   end
   return vim.b[buf].ts_folds and vim.treesitter.foldexpr() or "0"
 end
+vim.api.nvim_create_user_command("ReloadConfig", function()
+  local plugins = require("lazy").plugins()
+  local plugin_names = {}
+  for _, plugin in ipairs(plugins) do
+    table.insert(plugin_names, plugin.name)
+  end
+
+  vim.ui.select(plugin_names, {
+    prompt = "Reload plugin",
+  }, function(selected)
+    if selected then
+      require("lazy").reload({ plugins = { selected } })
+    end
+  end)
+end, { desc = "Reload a Lazy plugin" })
+
 
 return M
