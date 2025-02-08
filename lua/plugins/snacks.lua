@@ -22,7 +22,7 @@ return {
       },
     },
     indent = { 
-      enabled = false,
+      enabled = true,
       animate = {
         enabled = vim.fn.has("nvim-0.10") == 1,
         style = "out",
