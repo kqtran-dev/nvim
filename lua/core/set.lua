@@ -127,3 +127,8 @@ vim.api.nvim_create_autocmd("BufReadPost", {
             })
         end,
     })
+
+
+-- folding
+vim.opt.foldlevelstart=99 -- start with file unfolded
+
