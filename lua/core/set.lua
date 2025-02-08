@@ -22,6 +22,7 @@ vim.opt.virtualedit = "block"
 -- swapfiles and backup / undo
 vim.opt.swapfile = false
 vim.opt.backup = false
+-- clipboard for Windows
 if utils.os_name == "Windows_NT" then
     vim.opt.undodir = os.getenv("LOCALAPPDATA") .. "/.cache/vim/undodir"
     vim.g.python3_host_prog = os.getenv("LOCALAPPDATA") .. "Microsoft/WindowsApps/python.exe"
@@ -41,6 +42,48 @@ if utils.os_name == "Windows_NT" then
 else
     vim.opt.undodir = os.getenv("HOME") .. "/.cache/vim/undodir"
 end
+
+-- clipboard
+--vim.opt.clipboard:prepend({ "unnamed", "unnamedplus" })
+-- vim.opt.clipboard = "unnamedplus" -- keep OS and vim clipboards separate
+-- instead, use hotkeys
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+vim.keymap.set("n", "<leader>p", [["+p]])
+vim.keymap.set("n", "<leader>P", [["+P]])
+
+if vim.fn.has('wsl') == 1 then
+    vim.g.clipboard = {
+        name = 'WslClipboard',
+        copy = {
+            ['+'] = 'clip.exe',
+            ['*'] = 'clip.exe',
+        },
+        paste = {
+            ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+            ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+        },
+        cache_enabled = 0,
+    }
+end
+--
+-- found on 2025-02-08 - need to test
+-- --vim.g.clipboard = {
+-- 	name = "xclip-wsl",
+-- 	copy = {
+-- 		["+"] = { "xclip", "-quiet", "-i", "-selection", "clipboard" },
+-- 		["*"] = { "xclip", "-quiet", "-i", "-selection", "primary" },
+-- 	},
+-- 	paste = {
+-- 		["+"] = { "xclip", "-o", "-selection", "clipboard" },
+-- 		["*"] = { "xclip", "-o", "-selection", "primary" },
+-- 	},
+-- 	cache_enabled = 1, -- cache MUST be enabled, or else it hangs on dd/y/x and all other copy operations
+-- }
+-- set system clipboard
+
+
 vim.opt.undofile = true
 
 -- search
@@ -68,26 +111,6 @@ vim.opt.scrolloff = 999 -- keep cursor centered
 
 vim.opt.listchars = "tab:⇤–⇥,trail:·,extends:⇢,precedes:⇠,space:·"
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
-
--- clipboard
---vim.opt.clipboard:prepend({ "unnamed", "unnamedplus" })
-vim.opt.clipboard = "unnamedplus"
-if vim.fn.has('wsl') == 1 then
-    vim.g.clipboard = {
-        name = 'WslClipboard',
-        copy = {
-            ['+'] = 'clip.exe',
-            ['*'] = 'clip.exe',
-        },
-        paste = {
-            ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-            ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
-        },
-        cache_enabled = 0,
-    }
-end
--- set system clipboard
-
 -- obsidian
 vim.opt.conceallevel = 0 -- this is super annoying when trying to read json
 
