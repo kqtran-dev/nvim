@@ -40,3 +40,7 @@ vim.api.nvim_set_keymap('n', 'gh', '^', { noremap = true, silent = true })
 -- Map gl to move to the end of the line
 vim.api.nvim_set_keymap('n', 'gl', 'g_', { noremap = true, silent = true })
 
+-- tabs - sacrilege
+vim.keymap.set("n", "<C-j>", ":tabprevious<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-l>", ":tabnext<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>tn", ":tabnew<CR>", { noremap = true, silent = true })

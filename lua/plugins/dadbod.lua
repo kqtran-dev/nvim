@@ -1,6 +1,7 @@
 return {
     'tpope/vim-dadbod',
     'kristijanhusak/vim-dadbod-ui',
+    'kristijanhusak/vim-dadbod-completion',
     dependencies = {
         { 'tpope/vim-dadbod', lazy = true },
         { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql' }, lazy = true },
