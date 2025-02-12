@@ -1,23 +1,24 @@
 return {
-    'tpope/vim-dadbod',
-    'kristijanhusak/vim-dadbod-ui',
-    'kristijanhusak/vim-dadbod-completion',
-    dependencies = {
-        { 'tpope/vim-dadbod', lazy = true },
-        { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql' }, lazy = true },
-    },
-    cmd = {
-        'DBUI',
-        'DBUIToggle',
-        'DBUIAddConnection',
-        'DBUIFindBuffer',
-    },
-    init = function()
-        -- Your DBUI configuration
-        vim.g.db_ui_use_nerd_fonts = 1
-    --     vim.g.dbs = {
-    --         -- flightdb = "mysql://metabase@k/flightdb",
-    --         -- bwf064d01 = "sqlserver://bwfsa@bwf064d01"
-    --     }
-    end,
+  -- disabling on 2025-02-12 - no idea why but it is slowing down moving through files 
+    -- 'tpope/vim-dadbod',
+    -- 'kristijanhusak/vim-dadbod-ui',
+    -- 'kristijanhusak/vim-dadbod-completion',
+    -- dependencies = {
+    --     { 'tpope/vim-dadbod', lazy = true },
+    --     { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql' }, lazy = true },
+    -- },
+    -- cmd = {
+    --     'DBUI',
+    --     'DBUIToggle',
+    --     'DBUIAddConnection',
+    --     'DBUIFindBuffer',
+    -- },
+    -- init = function()
+    --     -- Your DBUI configuration
+    --     vim.g.db_ui_use_nerd_fonts = 1
+    -- --     vim.g.dbs = {
+    -- --         -- flightdb = "mysql://metabase@k/flightdb",
+    -- --         -- bwf064d01 = "sqlserver://bwfsa@bwf064d01"
+    -- --     }
+    -- end,
 }

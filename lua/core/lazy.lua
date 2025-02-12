@@ -20,6 +20,7 @@ require("lazy").setup({
     { import = "plugins.lsp" }, -- lsp and completion
     { import = "plugins.editing" }, -- lsp and completion
     { import = "plugins.utils" },
+    { import = "plugins.snacks" },
     { import = "plugins.obsidian" },
     defaults = { lazy = true },
     ui = {
