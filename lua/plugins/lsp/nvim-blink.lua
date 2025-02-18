@@ -2,10 +2,14 @@ return {
   {
     'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
-    dependencies = 'rafamadriz/friendly-snippets',
+    -- dependencies = 'rafamadriz/friendly-snippets',
+    dependencies = {
+      'giuxtaposition/blink-cmp-copilot',
+      'rafamadriz/friendly-snippets',
+    },
 
     -- use a release tag to download pre-built binaries
-    version = ''
+    version = '*',
     -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
     -- build = 'cargo build --release',
     -- If you use nix, you can build from source using latest nightly rust with:
@@ -54,12 +58,12 @@ return {
       -- Blink does not expose its default kind icons so you must copy them all (or set your custom ones) and add Copilot
       kind_icons = {
         Copilot = "",
-        Text = '󰉿',
+        Text = '󰉿ext',
         Method = '󰊕',
         Function = '󰊕',
         Constructor = '󰒓',
 
-        Field = '󰜢',
+        -- Field = '󰜢',
         Variable = '󰆦',
         Property = '󰖷',
 
