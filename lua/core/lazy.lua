@@ -17,11 +17,11 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     { import = "plugins" },
     { import = "plugins.ui" }, -- UI plugins (themes, treesitter, devicons)
-    { import = "plugins.lsp" }, -- lsp and completion
+    -- { import = "plugins.lsp" }, -- lsp and completion
     { import = "plugins.editing" }, -- lsp and completion
     { import = "plugins.utils" },
     { import = "plugins.snacks" },
-    { import = "plugins.obsidian" },
+    -- { import = "plugins.obsidian" },
     defaults = { lazy = true },
     ui = {
         border = "rounded"
