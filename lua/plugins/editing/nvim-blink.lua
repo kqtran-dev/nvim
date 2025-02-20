@@ -86,7 +86,7 @@ return {
       }
     },
     cmdline = {
-      enabled = true,
+      enabled = false,
       keymap = nil, -- Inherits from top level `keymap` config when not set
       sources = function()
         local type = vim.fn.getcmdtype()
