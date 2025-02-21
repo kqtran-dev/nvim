@@ -4,6 +4,7 @@ return {
     'fang2hou/blink-copilot',
     'rafamadriz/friendly-snippets',
   },
+  event = "InsertEnter",
   version = '*',
   opts = {
     completion = {
