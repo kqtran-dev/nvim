@@ -12,7 +12,8 @@ opt.autochdir = true
 -- Memory, CPU
 ----------------------------------------------------------
 -- perf
-opt.shadafile = "NONE"
+-- ok going to add this back 
+-- opt.shadafile = "NONE"
 
 -- swapfiles and backup / undo
 opt.swapfile = false
