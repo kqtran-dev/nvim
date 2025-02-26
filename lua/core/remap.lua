@@ -67,3 +67,15 @@ end
 -- Map to a keybinding (e.g., <leader>m)
 vim.api.nvim_set_keymap('n', '<leader>yim', ':lua YankInsideMarks()<CR>', { noremap = true, silent = true })
 
+-- insert mode movement
+vim.keymap.set("i", "<C-j>", "<Down>")
+vim.keymap.set("i", "<C-k>", "<Up>")
+vim.keymap.set("i", "<C-h>", "<C-o>b")
+vim.keymap.set("i", "<C-l>", "<C-o>w")
+
+
+-- window movement
+vim.keymap.set("n", "<Up>", "<c-w>k")
+vim.keymap.set("n", "<Down>", "<c-w>j")
+vim.keymap.set("n", "<Left>", "<c-w>h")
+vim.keymap.set("n", "<Right>", "<c-w>l")
