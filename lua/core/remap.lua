@@ -19,11 +19,15 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
 -- deletes highlighted text into void register so you can keep existing register
-vim.keymap.set('n', '<leader>y', '\"+y')
+-- vim.keymap.set('n', '<leader>y', '\"+y')
 vim.keymap.set('v', '<leader>y', '\"+y')
-vim.keymap.set('n', '<leader>Y', '\"+Y')
+-- vim.keymap.set('n', '<leader>Y', '\"+Y')
 
 vim.keymap.set("x", "<leader>p", "\"_dP")
+
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+
 
 -- can't remember what this was f
 -- vim.keymap.set("n", "<leader>s", ":%s/\\<<C-R><C-w>\\>/<C-r><C-w><Left><Left><Left>")
@@ -45,4 +49,21 @@ vim.api.nvim_set_keymap('n', 'gl', 'g_', { noremap = true, silent = true })
 vim.keymap.set("n", "<C-j>", ":tabprevious<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-l>", ":tabnext<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>tn", ":tabnew<CR>", { noremap = true, silent = true })
+
+-- Copy an entire file to the clipboard
+function YankFile()
+    vim.cmd("normal! ggVG\"+y")
+end
+
+vim.api.nvim_set_keymap('n', '<leader>yA', ':lua YankFile()<CR>', { noremap = true, silent = true })
+
+
+function YankInsideMarks()
+    -- Jump to the starting mark `[`
+    vim.cmd("normal! `{v`}\"+y")
+    print("Copied text between marks to clipboard")
+end
+
+-- Map to a keybinding (e.g., <leader>m)
+vim.api.nvim_set_keymap('n', '<leader>yim', ':lua YankInsideMarks()<CR>', { noremap = true, silent = true })
 
