@@ -5,11 +5,13 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- not sure what this functionality was called in Sublime but it's amazing
 -- select visual block, ctrl + shift + arrow to move the block up and down
-vim.keymap.set("v", "<C-S-K>", ":m '<-2<CR>gv=gv")
+-- these work for macOS
 vim.keymap.set("v", "<C-S-Up>", ":m '<-2<CR>gv=gv")
 vim.keymap.set("v", "<C-S-J>", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "<C-S-Down>", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<C-S-K>", ":m '<-2<CR>gv=gv")
 
+--  these do not work on Windows
 vim.keymap.set("n", "<A-j>", ":m .+1<CR>==") -- move line up(n)
 vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
 
