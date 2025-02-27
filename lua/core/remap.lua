@@ -5,10 +5,17 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 -- not sure what this functionality was called in Sublime but it's amazing
 -- select visual block, ctrl + shift + arrow to move the block up and down
-vim.keymap.set("v", "<C-S-K>", ":m '<-2<CR>gv=gv")
-vim.keymap.set("v", "<C-S-Up>", ":m '<-2<CR>gv=gv")
-vim.keymap.set("v", "<C-S-J>", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "<C-S-Down>", ":m '>+1<CR>gv=gv")
+-- vim.keymap.set("v", "<C-S-K>", ":m '<-2<CR>gv=gv")
+-- vim.keymap.set("v", "<C-S-Up>", ":m '<-2<CR>gv=gv")
+-- vim.keymap.set("v", "<C-S-J>", ":m '>+1<CR>gv=gv")
+-- vim.keymap.set("v", "<C-S-Down>", ":m '>+1<CR>gv=gv")
+
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>==") -- move line up(n)
+vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
+
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>==") -- move line down(n)
+vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
+-- vim.keymap.set("v", "<C-S-Up>", ":m .-2<CR>==")
 
 -- half page jumps - keep cursor centered
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
