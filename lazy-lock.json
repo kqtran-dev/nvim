@@ -1,5 +1,5 @@
 {
-  "blink-copilot": { "branch": "main", "commit": "fb1042aa0c450dd5920fa02f2a1e542b5e042581" },
+  "blink-copilot": { "branch": "main", "commit": "08ed48deb89a6b39fdb46fb7e6aee426ae174c09" },
   "blink.cmp": { "branch": "main", "commit": "705f20f92bb5edffaab3598fbb484dc37a558bc9" },
   "catppuccin": { "branch": "main", "commit": "7ab1a6ec70a664ecb95d84669efc20aaf4f4ed1b" },
   "colorful-menu.nvim": { "branch": "master", "commit": "f05ca76486c051a7a6597a433a183952b37f2346" },
