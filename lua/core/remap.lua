@@ -1,3 +1,5 @@
+local set = vim.keymap.set
+
 vim.g.mapleader = " "
 -- vim.g.mapleader = ";" -- can't use this because I like ; to be a motion command
 
@@ -84,7 +86,18 @@ vim.keymap.set("i", "<C-l>", "<C-o>w")
 
 
 -- window movement
-vim.keymap.set("n", "<Up>", "<c-w>k")
-vim.keymap.set("n", "<Down>", "<c-w>j")
-vim.keymap.set("n", "<Left>", "<c-w>h")
-vim.keymap.set("n", "<Right>", "<c-w>l")
+set("n", "<Up>", "<c-w>k")
+set("n", "<Down>", "<c-w>j")
+set("n", "<Left>", "<c-w>h")
+set("n", "<Right>", "<c-w>l")
+
+-- these need to be remapped from vim to neovim
+set("t", "<C-Up>", "<c-\\><c-n><c-w>k")
+set("t", "<C-Down>", "<c-\\><c-n><c-w>j")
+set("t", "<C-Left>", "<c-\\><c-n><c-w>h")
+set("t", "<C-Right>", "<c-\\><c-n><c-w>l")
+
+-- set.tnoremap <C-h> <C-\><C-n><C-w>h
+-- set.tnoremap <C-j> <C-\><C-n><C-w>j
+-- set.tnoremap <C-k> <C-\><C-n><C-w>k
+-- set.tnoremap <C-l> <C-\><C-n><C-w>l
