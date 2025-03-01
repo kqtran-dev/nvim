@@ -1,3 +1,6 @@
 return {
-    'xiyaowong/transparent.nvim'
+  'xiyaowong/transparent.nvim',
+  opts ={
+    extra_groups = {'Pmenu'},
+  }
 }

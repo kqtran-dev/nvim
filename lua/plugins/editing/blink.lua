@@ -7,24 +7,35 @@ return {
   event = "InsertEnter",
   version = '*',
   opts = {
-    completion = {
-      ghost_text = {
-        enabled = true
-      },
-      menu = {
+    signature = { 
+      enabled = true,
+      trigger = {
         enabled = true,
+        show_on_keyword = true,
+        show_on_insert = true,
+      },
+    },
+    completion = {
+      menu = {
         border = 'rounded',
-        winblend = 15,
-        winhighlight = 'Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None',
-        scrollbar = false,
         draw = {
+          align_to = 'cursor',
           columns = {
             { "kind_icon", }, { "label", "label_description", gap = 1, "kind" },
           },
+          gap = 1,
+          padding = 1,
           treesitter = {
             'lsp'
           },
         },
+        enabled = true,
+        winblend = 0,
+        winhighlight = 'Normal:BlinkCmpMenu,FloatBorder:BlinkCmpMenuBorder,CursorLine:BlinkCmpMenuSelection,Search:None',
+        scrollbar = true,
+      },
+      ghost_text = {
+        enabled = true
       },
     },
     keymap = {
