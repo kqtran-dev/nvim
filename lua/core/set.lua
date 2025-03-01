@@ -1,6 +1,7 @@
 local utils = require("core.utils")
 local g = vim.g       -- Global variables
 local opt = vim.opt   -- Set options (global/buffer/windows-scoped)
+local api = vim.api
 
 -----------------------------------------------------------
 -- General
@@ -56,6 +57,20 @@ opt.linebreak = true        -- Wrap on word boundary
 opt.termguicolors = true    -- Enable 24-bit RGB colors
 opt.laststatus=3            -- Set global statusline
 opt.signcolumn = "yes"
+
+api.nvim_set_hl(0, "LineNrAbove", { 
+  fg = "#1e66f5",
+  
+  bold = true })
+api.nvim_set_hl(0, "LineNr", { 
+  -- fg = "white",
+  bold = true })
+api.nvim_set_hl(0, "LineNrBelow", { 
+  fg = "#d20f39",
+  bold = true })
+
+
+
 -----------------------------------------------------------
 -- clipboard settings
 -----------------------------------------------------------
@@ -100,21 +115,6 @@ if vim.fn.has('wsl') == 1 then
         cache_enabled = 0,
     }
 end
---
--- found on 2025-02-08 - need to test
--- --vim.g.clipboard = {
--- 	name = "xclip-wsl",
--- 	copy = {
--- 		["+"] = { "xclip", "-quiet", "-i", "-selection", "clipboard" },
--- 		["*"] = { "xclip", "-quiet", "-i", "-selection", "primary" },
--- 	},
--- 	paste = {
--- 		["+"] = { "xclip", "-o", "-selection", "clipboard" },
--- 		["*"] = { "xclip", "-o", "-selection", "primary" },
--- 	},
--- 	cache_enabled = 1, -- cache MUST be enabled, or else it hangs on dd/y/x and all other copy operations
--- }
--- set system clipboard
 
 opt.undofile = true
 opt.cursorline = true
