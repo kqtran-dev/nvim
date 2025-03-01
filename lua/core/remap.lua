@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 -- vim.g.mapleader = ";" -- can't use this because I like ; to be a motion command
 
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>rw", vim.cmd.Ex)
 
 -- not sure what this functionality was called in Sublime but it's amazing
 -- select visual block, ctrl + shift + arrow to move the block up and down
