@@ -1,88 +1,92 @@
+local api = vim.api
 local set = vim.keymap.set
 
 vim.g.mapleader = " "
 -- vim.g.mapleader = ";" -- can't use this because I like ; to be a motion command
 
-vim.keymap.set("n", "<leader>rw", vim.cmd.Ex)
+set("n", "<leader>rw", vim.cmd.Ex)
 
 -- not sure what this functionality was called in Sublime but it's amazing
 -- select visual block, ctrl + shift + arrow to move the block up and down
 -- these work for macOS
-vim.keymap.set("v", "<C-S-Up>", ":m '<-2<CR>gv=gv")
-vim.keymap.set("v", "<C-S-J>", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "<C-S-Down>", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "<C-S-K>", ":m '<-2<CR>gv=gv")
+set("v", "<C-S-Up>", ":m '<-2<CR>gv=gv")
+set("v", "<C-S-J>", ":m '>+1<CR>gv=gv")
+set("v", "<C-S-Down>", ":m '>+1<CR>gv=gv")
+set("v", "<C-S-K>", ":m '<-2<CR>gv=gv")
 
 --  these do not work on Windows
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==") -- move line up(n)
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
+set("n", "<A-j>", ":m .+1<CR>==") -- move line up(n)
+set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
 
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==") -- move line down(n)
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
--- vim.keymap.set("v", "<C-S-Up>", ":m .-2<CR>==")
+set("n", "<A-k>", ":m .-2<CR>==") -- move line down(n)
+set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
+-- set("v", "<C-S-Up>", ":m .-2<CR>==")
 
 -- half page jumps - keep cursor centered
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+set("n", "<C-d>", "<C-d>zz")
+set("n", "<C-u>", "<C-u>zz")
 
 -- cursor centered for search terms
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+set("n", "n", "nzzzv")
+set("n", "N", "Nzzzv")
 
 -- deletes highlighted text into void register so you can keep existing register
--- vim.keymap.set('n', '<leader>y', '\"+y')
-vim.keymap.set('v', '<leader>y', '\"+y')
--- vim.keymap.set('n', '<leader>Y', '\"+Y')
+-- set('n', '<leader>y', '\"+y')
+set('v', '<leader>y', '\"+y')
+-- set('n', '<leader>Y', '\"+Y')
 
-vim.keymap.set("x", "<leader>p", "\"_dP")
+set("x", "<leader>p", "\"_dP")
 
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
+set({ "n", "v" }, "<leader>y", [["+y]])
+set("n", "<leader>Y", [["+Y]])
 
 
 -- can't remember what this was f
--- vim.keymap.set("n", "<leader>s", ":%s/\\<<C-R><C-w>\\>/<C-r><C-w><Left><Left><Left>")
--- vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+-- set("n", "<leader>s", ":%s/\\<<C-R><C-w>\\>/<C-r><C-w><Left><Left><Left>")
+-- set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 -- try to mimic ctrl + backspace behavior // undoing this because C-W is more vim-like
 -- vim.api.nvim_set_keymap('i', '<C-H>', '<C-W>', {noremap = true})
 
-vim.keymap.set('n', '<Leader>q', '<C-R><C-R>');
-vim.keymap.set('n', '<leader>b', ':ls<CR>:b<Space>', { noremap = true, silent = false })
+set('n', '<Leader>q', '<C-R><C-R>');
+set('n', '<leader>b', ':ls<CR>:b<Space>', { noremap = true, silent = false })
 
 -- Map gh to move to the beginning of the line
-vim.api.nvim_set_keymap('n', 'gh', '^', { noremap = true, silent = true })
+api.nvim_set_keymap('n', 'gh', '^', { noremap = true, silent = true })
 
 -- Map gl to move to the end of the line
-vim.api.nvim_set_keymap('n', 'gl', 'g_', { noremap = true, silent = true })
+api.nvim_set_keymap('n', 'gl', 'g_', { noremap = true, silent = true })
 
 -- tabs - sacrilege
-vim.keymap.set("n", "<C-j>", ":tabprevious<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<C-l>", ":tabnext<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>tn", ":tabnew<CR>", { noremap = true, silent = true })
+set("n", "<C-j>", ":tabprevious<CR>", { noremap = true, silent = true })
+set("n", "<C-l>", ":tabnext<CR>", { noremap = true, silent = true })
+set("n", "<leader>tn", ":tabnew<CR>", { noremap = true, silent = true })
 
--- Copy an entire file to the clipboard
-function YankFile()
+-- yank an entire file to the clipboard
+function YankAll()
     vim.cmd("normal! ggVG\"+y")
 end
+api.nvim_set_keymap('n', '<leader>yA', ':lua YankAll()<CR>', { noremap = true, silent = true })
 
-vim.api.nvim_set_keymap('n', '<leader>yA', ':lua YankFile()<CR>', { noremap = true, silent = true })
-
-
+-- yank from mark { to mark }
 function YankInsideMarks()
     -- Jump to the starting mark `[`
     vim.cmd("normal! `{v`}\"+y")
     print("Copied text between marks to clipboard")
 end
-
 -- Map to a keybinding (e.g., <leader>m)
 vim.api.nvim_set_keymap('n', '<leader>yim', ':lua YankInsideMarks()<CR>', { noremap = true, silent = true })
 
+function YankLine()
+  vim.cmd('normal! ^v$"+y')
+end
+api.nvim_set_keymap('n', '<leader>y', ':lua YankLine()<CR>', { noremap = true, silent = true })
+
 -- insert mode movement
-vim.keymap.set("i", "<C-j>", "<Down>")
-vim.keymap.set("i", "<C-k>", "<Up>")
-vim.keymap.set("i", "<C-h>", "<C-o>b")
-vim.keymap.set("i", "<C-l>", "<C-o>w")
+set("i", "<C-j>", "<Down>")
+set("i", "<C-k>", "<Up>")
+set("i", "<C-h>", "<C-o>b")
+set("i", "<C-l>", "<C-o>w")
 
 
 -- window movement
