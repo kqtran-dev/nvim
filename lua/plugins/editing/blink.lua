@@ -88,6 +88,7 @@ return {
         'path', 
         'snippets', 
         -- 'cmdline', 
+        -- removing this because for some reason the autocompletions show at the top of the file and it is very annoying
         'buffer', 
         'copilot'},
       providers = {
