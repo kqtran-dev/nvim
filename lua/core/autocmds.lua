@@ -91,3 +91,12 @@ vim.keymap.set("n", "<space>st", function()
   vim.cmd.wincmd("J")
   vim.api.nvim_win_set_height(0, 15)
 end)
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "python",
+  callback = function()
+    print("Python filetype detected")
+    print("FT:", vim.bo.filetype)
+    print("Snacks terminal shell:", vim.inspect(require("snacks").config.terminal.shell))
+  end,
+})

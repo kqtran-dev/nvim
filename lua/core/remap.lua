@@ -95,13 +95,5 @@ set("n", "<Down>", "<c-w>j")
 set("n", "<Left>", "<c-w>h")
 set("n", "<Right>", "<c-w>l")
 
--- these need to be remapped from vim to neovim
-set("t", "<C-Up>", "<c-\\><c-n><c-w>k")
-set("t", "<C-Down>", "<c-\\><c-n><c-w>j")
-set("t", "<C-Left>", "<c-\\><c-n><c-w>h")
-set("t", "<C-Right>", "<c-\\><c-n><c-w>l")
-
--- set.tnoremap <C-h> <C-\><C-n><C-w>h
--- set.tnoremap <C-j> <C-\><C-n><C-w>j
--- set.tnoremap <C-k> <C-\><C-n><C-w>k
--- set.tnoremap <C-l> <C-\><C-n><C-w>l
+set("n", "<c-_>", function() Snacks.terminal() end)
+set("t", "<c-_>", function() Snacks.terminal() end)
