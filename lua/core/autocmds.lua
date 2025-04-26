@@ -15,24 +15,31 @@ autocmd("BufReadPost", {
 vim.api.nvim_set_hl(0, "YankClipboard", { fg = "black", bg = "LightBlue", bold = true })
 vim.api.nvim_set_hl(0, "YankNormal", { fg = "black", bg = "white", bold = true })
 
-autocmd("TextYankPost", {
-    callback = function()
-        local event = vim.v.event
-        if event.regname == "+" or event.regname == "*" then
-            -- Yanked to system clipboard
-            vim.highlight.on_yank({
-                higroup = "YankClipboard",
-                timeout = 190,
-            })
-        else
-            -- Regular yank
-            vim.highlight.on_yank({
-                higroup = "YankNormal",
-                timeout = 40,
-            })
-        end
-    end,
+-- Automatically copy to Windows clipboard using OSC52
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    require('osc52').copy_register('+')
+  end,
 })
+
+-- autocmd("TextYankPost", {
+--     callback = function()
+--         local event = vim.v.event
+--         if event.regname == "+" or event.regname == "*" then
+--             -- Yanked to system clipboard
+--             vim.highlight.on_yank({
+--                 higroup = "YankClipboard",
+--                 timeout = 190,
+--             })
+--         else
+--             -- Regular yank
+--             vim.highlight.on_yank({
+--                 higroup = "YankNormal",
+--                 timeout = 40,
+--             })
+--         end
+--     end,
+-- })
 -- don't autocomment new lines
 autocmd("BufEnter", {
     pattern = "*",
