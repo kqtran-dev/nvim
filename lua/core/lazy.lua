@@ -15,32 +15,30 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    { import = "plugins" },
-    { import = "plugins.ui" }, -- UI plugins (themes, treesitter, devicons)
-    -- { import = "plugins.lsp" }, -- lsp and completion
-    { import = "plugins.editing" }, -- lsp and completion
-    { import = "plugins.utils" },
-    { import = "plugins.snacks" },
-    -- { import = "plugins.obsidian" },
-    defaults = { lazy = true },
-    ui = {
-        border = "rounded"
+  { import = "plugins" },
+  { import = "plugins.ui" }, -- UI plugins (themes, treesitter, devicons)
+  { import = "plugins.editing" }, -- lsp and completion
+  { import = "plugins.utils" },
+  { import = "plugins.snacks" },
+  defaults = { lazy = true },
+  ui = {
+    border = "rounded"
+  },
+  performance = {
+    cache = {
+      enabled = true,
     },
-    performance = {
-		cache = {
-			enabled = true,
-		},
-		rtp = {
-			disabled_plugins = {
-				"netrwPlugin",
-				"gzip",
-				"tarPlugin",
-				"tohtml",
-				"tutor",
-				"zipPlugin",
-			},
-		},
-	},
+    rtp = {
+      disabled_plugins = {
+        "netrwPlugin",
+        "gzip",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
+  },
 }
 )
 

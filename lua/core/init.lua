@@ -1,3 +1,4 @@
+require("core.unload")
 require("core.set")
 require("core.remap")
 if vim.g.vscode then

@@ -2,16 +2,16 @@
 -- Settings for neovim config files
 --
 local M = {}
-    M.os_name = vim.loop.os_uname().sysname
+M.os_name = vim.loop.os_uname().sysname
 
-    M.path_exists = function(path)
-        local f = io.open(path, "r")
-        if f ~= nil then
-            io.close(f)
-            return true
-        else
-            return false
-        end
+M.path_exists = function(path)
+  local f = io.open(path, "r")
+  if f ~= nil then
+    io.close(f)
+    return true
+  else
+    return false
+  end
 end
 
 -- optimized treesitter foldexpr for Neovim >= 0.10.0 -- from LazyVim
@@ -41,10 +41,10 @@ vim.api.nvim_create_user_command("ReloadConfig", function()
   vim.ui.select(plugin_names, {
     prompt = "Reload plugin",
   }, function(selected)
-    if selected then
-      require("lazy").reload({ plugins = { selected } })
-    end
-  end)
+      if selected then
+        require("lazy").reload({ plugins = { selected } })
+      end
+    end)
 end, { desc = "Reload a Lazy plugin" })
 
 
