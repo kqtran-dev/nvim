@@ -3,13 +3,13 @@ local autocmd = vim.api.nvim_create_autocmd   -- Create autocommand
 local api = vim.api
 
 autocmd("BufReadPost", {
-    callback = function(args)
-        local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
-        local line_count = vim.api.nvim_buf_line_count(args.buf)
-        if mark[1] > 0 and mark[1] <= line_count then
-            vim.cmd('normal! g`"zz')
-        end
-    end,
+  callback = function(args)
+    local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+    local line_count = vim.api.nvim_buf_line_count(args.buf)
+    if mark[1] > 0 and mark[1] <= line_count then
+      vim.cmd('normal! g`"zz')
+    end
+  end,
 })
 
 vim.api.nvim_set_hl(0, "YankClipboard", { fg = "black", bg = "LightBlue", bold = true })
@@ -41,11 +41,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 --     end,
 -- })
 -- don't autocomment new lines
+
 autocmd("BufEnter", {
-    pattern = "*",
-    callback = function()
-        vim.cmd("set fo-=c fo-=r fo-=o")
-    end,
+  pattern = "*",
+  callback = function()
+    vim.cmd("set fo-=c fo-=r fo-=o")
+  end,
 })
 
 --------------------------------
@@ -63,8 +64,8 @@ autocmd('Filetype', {
 })
 
 vim.api.nvim_create_autocmd("InsertLeave", {
-     pattern = "*.md",
-     command = "update",
+  pattern = "*.md",
+  command = "update",
 })
 
 -----------------------------------------------------------
