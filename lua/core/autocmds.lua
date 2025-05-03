@@ -93,3 +93,15 @@ autocmd('BufLeave', {
 --     -- print("Snacks terminal shell:", vim.inspect(require("snacks").config.terminal.shell))
 --   end,
 -- })
+
+
+-----------------------------------------------------------
+-- SQL Settings
+-----------------------------------------------------------
+autocmd("BufWritePre", {
+  pattern = "*.sql",
+    callback = function()
+    vim.cmd([[%!sql-formatter --uppercase --noColor]])
+    vim.cmd([[silent! %s/,\s*/\r,/g]])
+    end,
+})
