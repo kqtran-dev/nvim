@@ -15,7 +15,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  { import = "plugins" },
   { import = "plugins.ui" }, -- UI plugins (themes, treesitter, devicons)
   { import = "plugins.editing" }, -- lsp and completion
   { import = "plugins.utils" },
@@ -29,18 +28,18 @@ require("lazy").setup({
       enabled = true,
     },
     rtp = {
-      disabled_plugins = {
-        "editorconfig",
-        "matchit",
-        "matchparen",
-        "netrwPlugin",
-        "gzip",
-        "spellfile",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
-      },
+      -- disabled_plugins = {
+      --   "editorconfig",
+      --   "matchit",
+      --   "matchparen",
+      --   "netrwPlugin",
+      --   "gzip",
+      --   "spellfile",
+      --   "tarPlugin",
+      --   "tohtml",
+      --   "tutor",
+      --   "zipPlugin",
+      -- },
     },
   },
 }

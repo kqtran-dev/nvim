@@ -1,7 +1,8 @@
 local api = vim.api
 local set = vim.keymap.set
+local g = vim.g
 
-vim.g.mapleader = " "
+g.mapleader = " "
 -- vim.g.mapleader = ";" -- can't use this because I like ; to be a motion command
 
 set("n", "<leader>rw", vim.cmd.Ex)
@@ -14,13 +15,12 @@ set("v", "<C-S-J>", ":m '>+1<CR>gv=gv")
 set("v", "<C-S-Down>", ":m '>+1<CR>gv=gv")
 set("v", "<C-S-K>", ":m '<-2<CR>gv=gv")
 
---  these do not work on Windows
+--  these are the ones that work on Windows
 set("n", "<A-j>", ":m .+1<CR>==") -- move line up(n)
 set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
 
 set("n", "<A-k>", ":m .-2<CR>==") -- move line down(n)
 set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
--- set("v", "<C-S-Up>", ":m .-2<CR>==")
 
 -- half page jumps - keep cursor centered
 set("n", "<C-d>", "<C-d>zz")
@@ -40,7 +40,6 @@ set("x", "<leader>p", "\"_dP")
 set({ "n", "v" }, "<leader>y", [["+y]])
 set("n", "<leader>Y", [["+Y]])
 
-
 -- can't remember what this was f
 -- set("n", "<leader>s", ":%s/\\<<C-R><C-w>\\>/<C-r><C-w><Left><Left><Left>")
 -- set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
@@ -58,7 +57,7 @@ api.nvim_set_keymap('n', 'gh', '^', { noremap = true, silent = true })
 api.nvim_set_keymap('n', 'gl', 'g_', { noremap = true, silent = true })
 
 -- tabs - sacrilege
-set("n", "<C-j>", ":tabprevious<CR>", { noremap = true, silent = true })
+set("n", "<C-h>", ":tabprevious<CR>", { noremap = true, silent = true })
 set("n", "<C-l>", ":tabnext<CR>", { noremap = true, silent = true })
 set("n", "<leader>tn", ":tabnew<CR>", { noremap = true, silent = true })
 

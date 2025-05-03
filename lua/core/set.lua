@@ -1,11 +1,15 @@
-local utils = require("core.utils")
 local g = vim.g       -- Global variables
 local opt = vim.opt   -- Set options (global/buffer/windows-scoped)
 local api = vim.api
+local cmd = vim.cmd
+
+local utils = require("core.utils")
 
 -----------------------------------------------------------
 -- General
 -----------------------------------------------------------
+g.skip_defaults_vim = 1
+opt.langmenu = "en_US"
 opt.nu = true
 opt.autochdir = true
 
@@ -76,26 +80,26 @@ api.nvim_set_hl(0, "LineNrBelow", {
 -----------------------------------------------------------
 -- opt.clipboard = "unnamedplus" -- leaving commented - keep OS and vim clipboards separate
 -- instead, use hotkeys
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
+-- vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+-- vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 -- Windows OS
 if utils.os_name == "Windows_NT" then
     opt.undodir = os.getenv("LOCALAPPDATA") .. "/.cache/vim/undodir"
     g.python3_host_prog = os.getenv("LOCALAPPDATA") .. "Microsoft/WindowsApps/python.exe"
     -- set clipboard stuff
-    g.clipboard = {
-        name = 'win32yank',
-        copy = {
-            ["+"] = 'win32yank.exe -i --crlf',
-            ["*"] = 'win32yank.exe -i --crlf',
-        }, 
-        paste = {
-            ["+"] = 'win32yank.exe -o --lf',
-            ["*"] = 'win32yank.exe -o --lf',
-        },
-        cache_enabled = 0,
-    }
+    -- g.clipboard = {
+    --     name = 'win32yank',
+    --     copy = {
+    --         ["+"] = 'win32yank.exe -i --crlf',
+    --         ["*"] = 'win32yank.exe -i --crlf',
+    --     }, 
+    --     paste = {
+    --         ["+"] = 'win32yank.exe -o --lf',
+    --         ["*"] = 'win32yank.exe -o --lf',
+    --     },
+    --     cache_enabled = 0,
+    -- }
 else
     opt.undodir = os.getenv("HOME") .. "/.cache/vim/undodir"
 end

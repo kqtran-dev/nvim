@@ -12,36 +12,27 @@ autocmd("BufReadPost", {
   end,
 })
 
-vim.api.nvim_set_hl(0, "YankClipboard", { fg = "black", bg = "LightBlue", bold = true })
-vim.api.nvim_set_hl(0, "YankNormal", { fg = "black", bg = "white", bold = true })
-
--- Automatically copy to Windows clipboard using OSC52
-vim.api.nvim_create_autocmd('TextYankPost', {
+-- highlight the yanked text - qol
+autocmd("User", {
+  pattern = "VeryLazy",
   callback = function()
-    require('osc52').copy_register('+')
+	vim.defer_fn(function()
+  	vim.api.nvim_set_hl(0, "YankClipboard", { fg = "black", bg = "LightBlue", bold = true })
+  	vim.api.nvim_set_hl(0, "YankNormal", { fg = "black", bg = "white", bold = true })
+  	autocmd("TextYankPost", {
+    	callback = function()
+      	local event = vim.v.event
+      	vim.highlight.on_yank({
+        	higroup = (event.regname == "+" or event.regname == "*") and "YankClipboard" or "YankNormal",
+        	timeout = (event.regname == "+" or event.regname == "*") and 190 or 40,
+      	})
+    	end,
+  	})
+	end, 200) -- delay in milliseconds
   end,
 })
 
--- autocmd("TextYankPost", {
---     callback = function()
---         local event = vim.v.event
---         if event.regname == "+" or event.regname == "*" then
---             -- Yanked to system clipboard
---             vim.highlight.on_yank({
---                 higroup = "YankClipboard",
---                 timeout = 190,
---             })
---         else
---             -- Regular yank
---             vim.highlight.on_yank({
---                 higroup = "YankNormal",
---                 timeout = 40,
---             })
---         end
---     end,
--- })
--- don't autocomment new lines
-
+-- disable autocomment new lines
 autocmd("BufEnter", {
   pattern = "*",
   callback = function()
@@ -63,7 +54,7 @@ autocmd('Filetype', {
   command = 'setlocal shiftwidth=2 tabstop=2'
 })
 
-vim.api.nvim_create_autocmd("InsertLeave", {
+autocmd("InsertLeave", {
   pattern = "*.md",
   command = "update",
 })
@@ -93,12 +84,6 @@ autocmd('BufLeave', {
   command = 'stopinsert'
 })
 
-vim.keymap.set("n", "<space>st", function()
-  vim.cmd.vnew()
-  vim.cmd.term()
-  vim.cmd.wincmd("J")
-  vim.api.nvim_win_set_height(0, 15)
-end)
 --
 -- vim.api.nvim_create_autocmd("FileType", {
 --   pattern = "python",
