@@ -30,8 +30,12 @@ require("lazy").setup({
     },
     rtp = {
       disabled_plugins = {
+        "editorconfig",
+        "matchit",
+        "matchparen",
         "netrwPlugin",
         "gzip",
+        "spellfile",
         "tarPlugin",
         "tohtml",
         "tutor",
