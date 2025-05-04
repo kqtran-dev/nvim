@@ -1,8 +1,3 @@
-local g = vim.g       -- Global variables
-local opt = vim.opt   -- Set options (global/buffer/windows-scoped)
-local api = vim.api
-local cmd = vim.cmd
-
 local utils = require("core.utils")
 
 -----------------------------------------------------------
@@ -78,30 +73,12 @@ api.nvim_set_hl(0, "LineNrBelow", {
 -----------------------------------------------------------
 -- clipboard settings
 -----------------------------------------------------------
--- opt.clipboard = "unnamedplus" -- leaving commented - keep OS and vim clipboards separate
--- instead, use hotkeys
--- vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
--- vim.keymap.set("n", "<leader>Y", [["+Y]])
-
 -- Windows OS
-if utils.os_name == "Windows_NT" then
-    opt.undodir = os.getenv("LOCALAPPDATA") .. "/.cache/vim/undodir"
-    g.python3_host_prog = os.getenv("LOCALAPPDATA") .. "Microsoft/WindowsApps/python.exe"
-    -- set clipboard stuff
-    -- g.clipboard = {
-    --     name = 'win32yank',
-    --     copy = {
-    --         ["+"] = 'win32yank.exe -i --crlf',
-    --         ["*"] = 'win32yank.exe -i --crlf',
-    --     }, 
-    --     paste = {
-    --         ["+"] = 'win32yank.exe -o --lf',
-    --         ["*"] = 'win32yank.exe -o --lf',
-    --     },
-    --     cache_enabled = 0,
-    -- }
+if IS_WINDOWS then
+  opt.undodir = os.getenv("LOCALAPPDATA") .. "/.cache/vim/undodir"
+  g.python3_host_prog = os.getenv("LOCALAPPDATA") .. "/Microsoft/WindowsApps/python.exe"
 else
-    opt.undodir = os.getenv("HOME") .. "/.cache/vim/undodir"
+  opt.undodir = os.getenv("HOME") .. "/.cache/vim/undodir"
 end
 
 -- WSL
@@ -129,14 +106,6 @@ opt.listchars = "tab:⇤–⇥,trail:·,extends:⇢,precedes:⇠,space:·"
 opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
 opt.conceallevel = 0 -- this is super annoying when trying to read json
 
------------------------------------------------------------
--- netrw
------------------------------------------------------------
-g.netrw_banner = 0
-g.netrw_list_hide = '*.swp,.git,.DS_Store,*.o,*.pyc,__pycache__'
-g.netrw_hide = 1
--- vim.g.loaded_netrwPlugin = 0
-g.netrw_banner = 0
 
 --autocmd FileType json setlocal formatprg=jq
 -- Restore cursor to file position in previous editing session
@@ -147,36 +116,3 @@ g.netrw_banner = 0
 -----------------------------------------------------------
 -- Disable nvim intro
 opt.shortmess:append "sI"
-
--- Disable builtin plugins
-local disabled_built_ins = {
-   "2html_plugin",
-   "bugreport",
-   "compiler",
-   "getscript",
-   "getscriptPlugin",
-   "gzip",
-   "logipat",
-   "matchit",
-   "netrw",
-   "netrwPlugin",
-   "netrwSettings",
-   "netrwFileHandlers",
-   "optwin",
-   "rrhelper",
-   "rplugin",
-   "synmenu",
-   "spellfile_plugin",
-   "tar",
-   "tarPlugin",
-   "vimball",
-   "vimballPlugin",
-   "tutor",
-   -- "ftplugin",
-   "zip",
-   "zipPlugin",
-}
-
-for _, plugin in pairs(disabled_built_ins) do
-   g["loaded_" .. plugin] = 1
-end

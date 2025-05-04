@@ -1,7 +1,3 @@
-local api = vim.api
-local set = vim.keymap.set
-local g = vim.g
-
 g.mapleader = " "
 -- vim.g.mapleader = ";" -- can't use this because I like ; to be a motion command
 
@@ -57,8 +53,8 @@ api.nvim_set_keymap('n', 'gh', '^', { noremap = true, silent = true })
 api.nvim_set_keymap('n', 'gl', 'g_', { noremap = true, silent = true })
 
 -- tabs - sacrilege
-set("n", "<C-h>", ":tabprevious<CR>", { noremap = true, silent = true })
-set("n", "<C-l>", ":tabnext<CR>", { noremap = true, silent = true })
+set("n", "<leader>h", ":tabprevious<CR>", { noremap = true, silent = true })
+set("n", "<Leader>l", ":tabNext<CR>", { noremap = true, silent = true })
 set("n", "<leader>tn", ":tabnew<CR>", { noremap = true, silent = true })
 
 -- yank an entire file to the clipboard
@@ -89,10 +85,10 @@ set("i", "<C-l>", "<C-o>w")
 
 
 -- window movement
-set("n", "<Up>", "<c-w>k")
-set("n", "<Down>", "<c-w>j")
-set("n", "<Left>", "<c-w>h")
-set("n", "<Right>", "<c-w>l")
+-- set("n", "<Up>", "<c-w>k")
+-- set("n", "<Down>", "<c-w>j")
+-- set("n", "<Left>", "<c-w>h")
+-- set("n", "<Right>", "<c-w>l")
 
 set("n", "<c-_>", function() Snacks.terminal() end)
 set("t", "<c-_>", function() Snacks.terminal() end)

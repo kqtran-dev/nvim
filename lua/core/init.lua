@@ -1,3 +1,4 @@
+require("core.globals")
 require("core.unload")
 require("core.set")
 require("core.remap")
