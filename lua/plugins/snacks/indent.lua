@@ -9,7 +9,7 @@ return {
         easing = "linear",
         duration = {
           step = 15, -- ms per step
-          total = 250, -- maximum duration
+          total = 150, -- maximum duration
         },
       },
       scope = {
