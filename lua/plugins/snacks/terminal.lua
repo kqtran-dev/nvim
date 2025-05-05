@@ -1,3 +1,6 @@
+local set = vim.keymap.set
+  set("n", "<c-_>", function() Snacks.terminal() end)
+  set("t", "<c-_>", function() Snacks.terminal() end)
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 
 local function set_default_shell()
@@ -52,5 +55,8 @@ return {
       },
     },
   },
+-- vim.keymap.set("n", "<c-_>", function() Snacks.terminal() end)
+-- vim.keymap.set("t", "<c-_>", function() Snacks.terminal() end)
 }
+
 

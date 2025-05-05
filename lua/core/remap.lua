@@ -1,5 +1,4 @@
 g.mapleader = " "
--- vim.g.mapleader = ";" -- can't use this because I like ; to be a motion command
 
 set("n", "<leader>rw", vim.cmd.Ex)
 
@@ -70,7 +69,7 @@ function YankInsideMarks()
     print("Copied text between marks to clipboard")
 end
 -- Map to a keybinding (e.g., <leader>m)
-vim.api.nvim_set_keymap('n', '<leader>yim', ':lua YankInsideMarks()<CR>', { noremap = true, silent = true })
+api.nvim_set_keymap('n', '<leader>yim', ':lua YankInsideMarks()<CR>', { noremap = true, silent = true })
 
 function YankLine()
   vim.cmd('normal! ^v$"+y')
@@ -90,5 +89,3 @@ set("i", "<C-l>", "<C-o>w")
 -- set("n", "<Left>", "<c-w>h")
 -- set("n", "<Right>", "<c-w>l")
 
-set("n", "<c-_>", function() Snacks.terminal() end)
-set("t", "<c-_>", function() Snacks.terminal() end)
