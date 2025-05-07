@@ -28,6 +28,7 @@ return {
           "lua",
           "python",
           "query",
+          "regex", -- required for snacks
           "json",
           "vim",
           "vimdoc",
