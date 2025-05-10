@@ -15,6 +15,7 @@
 -- vim.g.loaded_shada_plugin      = 1
 -- vim.g.loaded_man               = 1
 -- vim.g.loaded_editorconfig      = 1
+vim.g.skip_defaults_lua = 1
 vim.g.loaded_node_provider = 0
 vim.g.loaded_perl_provider = 0
 require("core")

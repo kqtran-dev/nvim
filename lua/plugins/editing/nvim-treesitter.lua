@@ -20,7 +20,7 @@ return {
           end,
         },
         indent = { enable = true },
-        autotag = { enable = true },
+        -- autotag = { enable = true },
         prefer_git = false,
         compilers = { "zig", "clangd" }, 
         ensure_installed = {

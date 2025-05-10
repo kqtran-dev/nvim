@@ -32,7 +32,7 @@ require("lazy").setup({
         "editorconfig",
         "matchit",
         "matchparen",
-        "netrwPlugin",
+        -- "netrwPlugin",
         "gzip",
         "spellfile",
         "tarPlugin",
