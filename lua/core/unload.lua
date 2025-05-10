@@ -1,8 +1,3 @@
-local g = vim.g       -- Global variables
-local opt = vim.opt   -- Set options (global/buffer/windows-scoped)
-local api = vim.api
-local cmd = vim.cmd
---
 -- Disable builtin plugins
 local disabled_built_ins = {
    "2html_plugin",
