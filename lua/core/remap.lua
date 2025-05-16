@@ -53,7 +53,7 @@ api.nvim_set_keymap('n', 'gl', 'g_', { noremap = true, silent = true })
 
 -- tabs - sacrilege
 set("n", "<leader>h", ":tabprevious<CR>", { noremap = true, silent = true })
-set("n", "<Leader>l", ":tabNext<CR>", { noremap = true, silent = true })
+set("n", "<Leader>l", ":tabnext<CR>", { noremap = true, silent = true })
 set("n", "<leader>tn", ":tabnew<CR>", { noremap = true, silent = true })
 
 -- yank an entire file to the clipboard
