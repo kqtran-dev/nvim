@@ -42,7 +42,82 @@ opt.virtualedit = "block"
 opt.number = true           -- Show line number
 opt.relativenumber = true   -- Relative line numbers
 opt.showmatch = true        -- Highlight matching parenthesis
+---------------
+-- Folding
+---------------
 opt.foldmethod = 'marker'   -- Enable folding (default 'foldmarker')
+opt.foldlevel = 99
+opt.fillchars = { fold = "\\" }
+opt.foldtext = "v:lua.CustomFoldText()"
+
+
+-- Set local options in an autocmd or filetype
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    vim.opt_local.foldmethod = "expr"
+    vim.opt_local.foldexpr = "v:lua.GetPotionFold(v:lnum)"
+  end,
+})
+
+-- Fold expression function
+function _G.GetPotionFold(lnum)
+  local line = vim.fn.getline(lnum)
+  if line:match("^%s*$") then
+    return "-1"
+  end
+
+  local function indentLevel(n)
+    return vim.fn.indent(n) / vim.o.shiftwidth
+  end
+
+  local function nextNonBlankLine(n)
+    local numlines = vim.fn.line("$")
+    for i = n + 1, numlines do
+      if vim.fn.getline(i):match("%S") then
+        return i
+      end
+    end
+    return -2
+  end
+
+  local this_indent = indentLevel(lnum)
+  local next_indent = indentLevel(nextNonBlankLine(lnum))
+
+  if next_indent == this_indent then
+    return tostring(this_indent)
+  elseif next_indent < this_indent then
+    return tostring(this_indent)
+  elseif next_indent > this_indent then
+    return ">" .. next_indent
+  end
+end
+
+-- Fold text display function
+function _G.CustomFoldText()
+  local fs = vim.v.foldstart
+  while vim.fn.getline(fs):match("^%s*$") do
+    fs = vim.fn.nextnonblank(fs + 1)
+    if fs == 0 or fs > vim.v.foldend then break end
+  end
+
+  local line
+  if fs > vim.v.foldend then
+    line = vim.fn.getline(vim.v.foldstart)
+  else
+    line = vim.fn.substitute(vim.fn.getline(fs), "\t", string.rep(" ", vim.o.tabstop), "g")
+  end
+
+  local w = vim.fn.winwidth(0) - vim.o.foldcolumn - (vim.wo.number and 8 or 0)
+  local foldSize = 1 + vim.v.foldend - vim.v.foldstart
+  local foldSizeStr = " " .. foldSize .. " lines "
+  local foldLevelStr = string.rep("+--", vim.v.foldlevel)
+  local expansionString = string.rep(" ", w - vim.fn.strwidth(foldSizeStr .. line .. foldLevelStr))
+  return line .. expansionString .. foldSizeStr .. foldLevelStr
+end
+
+
+
 opt.colorcolumn = '80'      -- Line length marker at 80 columns
 opt.splitright = true       -- Vertical split to the right
 opt.splitbelow = true       -- Horizontal split to the bottom
@@ -116,3 +191,5 @@ opt.conceallevel = 0 -- this is super annoying when trying to read json
 -----------------------------------------------------------
 -- Disable nvim intro
 opt.shortmess:append "sI"
+
+--
