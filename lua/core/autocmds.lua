@@ -94,10 +94,10 @@ autocmd('BufLeave', {
 -----------------------------------------------------------
 -- SQL Settings
 -----------------------------------------------------------
-autocmd("BufWritePre", {
-  pattern = "*.sql",
-    callback = function()
-    vim.cmd([[%!sql-formatter --uppercase --noColor]])
-    vim.cmd([[silent! %s/,\s*/\r,/g]])
-    end,
-})
+-- autocmd("BufWritePre", {
+--   pattern = "*.sql",
+--     callback = function()
+--     vim.cmd([[%!npx sql-formatter -l tsql]])
+--     vim.cmd([[silent! %s/,\s*/\r,/g]])
+--     end,
+-- })
