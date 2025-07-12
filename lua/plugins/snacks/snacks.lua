@@ -24,12 +24,12 @@ return {
       timeout = 3000,
     },
     picker = {
-          lsp = {
-      unavailable = "",
-      enabled = " ",
-      disabled = " ",
-      attached = "󰖩 "
-    },
+      lsp = {
+        unavailable = "",
+        enabled = " ",
+        disabled = " ",
+        attached = "󰖩 "
+      },
     },
     statuscolumn = { enabled = true,
       left = { "mark", "sign" }, -- priority of signs on the left (high to low)

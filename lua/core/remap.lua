@@ -89,3 +89,18 @@ set("i", "<C-l>", "<C-o>w")
 -- set("n", "<Left>", "<c-w>h")
 -- set("n", "<Right>", "<c-w>l")
 
+-- vim.keymap.set("n", "zk", function()
+--   vim.cmd("normal! zk")
+--   while vim.fn.foldclosed('.') ~= -1 do
+--     vim.cmd("normal! zk")
+--   end
+-- end, { noremap = true, silent = true })
+--
+--
+-- vim.keymap.set("n", "zj", function()
+--   vim.cmd("normal! zj")
+--   while vim.fn.foldclosed('.') ~= -1 do
+--     vim.cmd("normal! zj")
+--   end
+-- end, { noremap = true, silent = true })
+--
