@@ -1,6 +1,7 @@
 local set = vim.keymap.set
-  set("n", "<c-_>", function() Snacks.terminal() end)
-  set("t", "<c-_>", function() Snacks.terminal() end)
+set("n", "<c-_>", function() Snacks.terminal() end)
+set("t", "<c-_>", function() Snacks.terminal() end)
+set("v", "<c-_>", SendVisualToTerminal, { noremap = true, silent = true })
 local is_windows = vim.loop.os_uname().sysname == "Windows_NT"
 
 local function set_default_shell()

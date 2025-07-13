@@ -101,3 +101,78 @@ autocmd('BufLeave', {
 --     vim.cmd([[silent! %s/,\s*/\r,/g]])
 --     end,
 -- })
+
+function SendVisualToTerminal()
+  local mode = vim.fn.mode()
+  if mode ~= "v" and mode ~= "V" then
+    vim.notify("Not in visual mode", vim.log.levels.WARN)
+    return
+  end
+
+  -- Yank selection to "v" register
+  vim.cmd('normal! "vy')
+  local selected = vim.fn.getreg("v")
+  if not selected or selected == "" then
+    vim.notify("No text selected.", vim.log.levels.WARN)
+    return
+  end
+
+  local function find_terminal_buf_and_job()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      if vim.bo[buf].buftype == "terminal" and vim.api.nvim_buf_is_loaded(buf) then
+        local jid = vim.b[buf].terminal_job_id
+        if jid and jid > 0 then
+          return buf, jid
+        end
+      end
+    end
+    return nil, nil
+  end
+
+  -- Step 1: Try to find existing terminal
+  local term_bufnr, job_id = find_terminal_buf_and_job()
+
+  -- Step 2: If no terminal exists, create one using Snacks.terminal()
+  if not term_bufnr then
+    pcall(function() Snacks.terminal() end)
+    vim.wait(500, function()
+      term_bufnr, job_id = find_terminal_buf_and_job()
+      return term_bufnr ~= nil
+    end, 20, false)
+
+    if not term_bufnr then
+      vim.notify("Failed to initialize terminal.", vim.log.levels.ERROR)
+      return
+    end
+  end
+
+  -- Step 3: Ensure terminal is visible
+  pcall(function() Snacks.terminal() end)
+
+  -- Step 4: Get the window that now shows the terminal
+  local target_win = nil
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_buf(win) == term_bufnr then
+      target_win = win
+      break
+    end
+  end
+
+  local current_win = vim.api.nvim_get_current_win()
+  if target_win then
+    vim.api.nvim_set_current_win(target_win)
+  end
+
+  -- Step 5: Send selected lines
+  for line in selected:gmatch("[^\r\n]+") do
+    vim.fn.chansend(job_id, line .. "\r")
+  end
+
+  -- Step 6: Return to original window
+  vim.api.nvim_set_current_win(current_win)
+end
+
+-- vim.keymap.set({"n", "v", "i"}, "<C-e>", "<Nop>", { noremap = true })
+-- vim.keymap.set("v", "<C-r>", SendVisualToTerminal, { noremap = true, silent = true })
+-- vim.keymap.set("v", "<leader>r", SendVisualToTerminal, { noremap = true, silent = true })
+
