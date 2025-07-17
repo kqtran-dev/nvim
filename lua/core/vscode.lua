@@ -16,7 +16,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     -- { import = "plugins" },
     { import = "plugins.ui" }, -- UI plugins (themes, treesitter, devicons)
-    { import = "plugins.utils" },
+    -- { import = "plugins.utils" },
     -- { import = "plugins.snacks" },
     defaults = { lazy = true },
     ui = {
