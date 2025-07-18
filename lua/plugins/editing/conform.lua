@@ -12,7 +12,8 @@ return {
   opts = {
     formatters_by_ft = {
       lua = { "stylua" },
-      sql = { "sqlfluff" },
+      -- sql = { "sqlfluff" },
+      sql = { "sql-formatter" },
     },
     format_on_save = function(bufnr)
       local bufname = vim.api.nvim_buf_get_name(bufnr)
@@ -32,13 +33,13 @@ return {
         stdin = true,
       },
       sqlfluff = {
-        command = "sqlfluff",
+        command = "sql-formatter",
         args = {
-          "fix",
-          "-",
-          "--disable-progress-bar",
+          -- "fix",
+          -- "-",
+          -- "--disable-progress-bar",
           "--config",
-          vim.fn.expand("~/.config/formatters/sqlfluff.ini"),
+          vim.fn.expand("~/.config/formatters/sql-formatter.json"),
         },
         stdin = true,
         require_cwd = false,
