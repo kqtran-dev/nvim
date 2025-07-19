@@ -3,14 +3,14 @@ return {
     opts = {
         dashboard = {
                 sections = {
-                    { section = "header" },
                     {
-                        pane = 2,
+                        pane = 1,
                         section = "terminal",
                         cmd = "pokemon-colorscripts -r 1-2",
                         height = 11,
                         padding = 1,
                     },
+                    -- { section = "header" },
                     { section = "keys", gap = 1, padding = 1 },
                     {
                         pane = 2,
