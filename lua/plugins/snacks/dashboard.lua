@@ -7,7 +7,7 @@ return {
                     {
                         pane = 2,
                         section = "terminal",
-                        cmd = "colorscript -e square",
+                        cmd = "pokemon-colorscripts -r 1-2",
                         height = 5,
                         padding = 1,
                     },
