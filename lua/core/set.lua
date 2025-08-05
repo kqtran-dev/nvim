@@ -149,7 +149,7 @@ api.nvim_set_hl(0, "LineNrBelow", {
 -- clipboard settings
 -----------------------------------------------------------
 -- Windows OS
-if IS_WINDOWS then
+if g.IS_WINDOWS then
   opt.undodir = os.getenv("LOCALAPPDATA") .. "/.cache/vim/undodir"
   g.python3_host_prog = os.getenv("LOCALAPPDATA") .. "/Microsoft/WindowsApps/python.exe"
 else

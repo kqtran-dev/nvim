@@ -1,70 +1,56 @@
--- vim.g.loaded_gzip              = 1
--- vim.g.loaded_tar               = 1
--- vim.g.loaded_tarPlugin         = 1
--- vim.g.loaded_zip               = 1
--- vim.g.loaded_zipPlugin         = 1
--- vim.g.loaded_netrw             = 1
--- vim.g.loaded_netrwPlugin       = 1
--- vim.g.loaded_netrwSettings     = 1
--- vim.g.loaded_netrwFileHandlers = 1
--- vim.g.loaded_matchparen        = 1
--- vim.g.loaded_matchit           = 1
--- vim.g.loaded_spellfile_plugin  = 1
--- vim.g.loaded_tutor_mode_plugin = 1
--- vim.g.loaded_2html_plugin      = 1
--- vim.g.loaded_shada_plugin      = 1
--- vim.g.loaded_man               = 1
--- vim.g.loaded_editorconfig      = 1
-vim.g.skip_defaults_lua = 1
-vim.g.loaded_node_provider = 0
-vim.g.loaded_perl_provider = 0
-if vim.uv.os_gethostname() == "BWF064UGW6YR14" then
-    require("core.globals")
-    require("core.remap")
-    require("core.utils")
-    require("core.set")
-    require("core.autocmds")
-    local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+g   = vim.g
+opt = vim.opt
+api = vim.api
+cmd = vim.cmd
+augroup = vim.api.nvim_create_augroup
+autocmd = vim.api.nvim_create_autocmd
+set = vim.keymap.set
+uv = vim.uv
 
-    if not vim.loop.fs_stat(lazypath) then
-        vim.fn.system({
-            "git",
-            "clone",
-            "--filter=blob:none",
-            "https://github.com/folke/lazy.nvim.git",
-            "--branch=stable", -- latest stable release
-            lazypath,
-        })
-    end
+g.loaded_gzip              = 1
+g.loaded_tar               = 1
+g.loaded_tarPlugin         = 1
+g.loaded_zip               = 1
+g.loaded_zipPlugin         = 1
+-- g.loaded_netrw             = 1
+g.loaded_netrwPlugin       = 1
+g.loaded_netrwSettings     = 1
+g.loaded_netrwFileHandlers = 1
+g.loaded_matchparen        = 1
+g.loaded_matchit           = 1
+g.loaded_spellfile_plugin  = 1
+g.loaded_tutor_mode_plugin = 1
+g.loaded_2html_plugin      = 1
+g.loaded_shada_plugin      = 1
+g.loaded_man               = 1
+g.loaded_editorconfig      = 1
+g.skip_defaults_lua = 1
+g.loaded_node_provider = 0
+g.loaded_perl_provider = 0
 
-    vim.opt.rtp:prepend(lazypath)
+local sysname = vim.loop.os_uname().sysname
 
-    require("lazy").setup({
-        { import = "plugins.editing" }, -- UI plugins (themes, treesitter, devicons)
-        -- defaults = { lazy = true },
-        -- ui = {
-        --   border = "rounded"
-        -- },
-        -- performance = {
-        --   cache = {
-        --     enabled = true,
-        --   },
-        --   rtp = {
-        --     disabled_plugins = {
-        --       "editorconfig",
-        --       "matchit",
-        --       "matchparen",
-        --       "netrwPlugin",
-        --       "gzip",
-        --       "spellfile",
-        --       "tarPlugin",
-        --       "tohtml",
-        --       "tutor",
-        --       "zipPlugin",
-        --     },
-        --   },
-        -- },
-    })
-else
-    require("core")
+g.IS_MACOS   = sysname == "Darwin"
+g.IS_WINDOWS = sysname == "Windows_NT"
+g.IS_WSL     = vim.fn.has("wsl") == 1
+g.IS_LINUX   = not (_G.IS_MACOS or _G.IS_WINDOWS)
+
+
+if (uv.os_gethostname() ~= "BWF" and not g.vscode) then
+  g.BASE = 1
+  require("core.base")
+end
+
+if (uv.os_gethostname() ~= "BWF" and g.vscode) then
+  g.VSCODE = 1
+  require("core.vscode")
+end
+
+if (vim.uv.os_gethostname() ~= "BWF" and IS_WSL) then
+  vim.WSL = 1
+  require("core.wsl")
+end
+
+if (IS_MACOS) then
+  require("core.macos")
 end

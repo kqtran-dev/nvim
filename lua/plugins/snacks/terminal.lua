@@ -23,6 +23,7 @@ local current_shell = set_default_shell()
 
 return {
   "folke/snacks.nvim",
+  lazy = false,
   keys = {
     -- your keybinds
   },
