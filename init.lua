@@ -7,6 +7,8 @@ autocmd = vim.api.nvim_create_autocmd
 set = vim.keymap.set
 uv = vim.uv
 
+local hostname = uv.os_gethostname()
+
 g.loaded_gzip              = 1
 g.loaded_tar               = 1
 g.loaded_tarPlugin         = 1
@@ -32,25 +34,23 @@ local sysname = vim.loop.os_uname().sysname
 
 g.IS_MACOS   = sysname == "Darwin"
 g.IS_WINDOWS = sysname == "Windows_NT"
+g.IS_WINDOWS = sysname == "Windows_NT"
 g.IS_WSL     = vim.fn.has("wsl") == 1
-g.IS_LINUX   = not (_G.IS_MACOS or _G.IS_WINDOWS)
+g.IS_LINUX   = sysname == "Linux"
 
-
-if (uv.os_gethostname() ~= "BWF" and not g.vscode) then
-  g.BASE = 1
-  require("core.base")
-end
-
-if (uv.os_gethostname() ~= "BWF" and g.vscode) then
-  g.VSCODE = 1
-  require("core.vscode")
-end
-
-if (vim.uv.os_gethostname() ~= "BWF" and IS_WSL) then
-  vim.WSL = 1
-  require("core.wsl")
-end
-
-if (IS_MACOS) then
-  require("core.macos")
+if (g.IS_LINUX) then 
+	g.BASE_linux = 1
+	require("core.base_linux")
+elseif (g.IS_MACOS) then
+	g.BASE_macOS = 1
+	require("core.macos")
+elseif (g.IS_WINDOWS and string.match(hostname, "^BWF") and not g.vscode) then
+	g.BASE = 1
+	require("core.base")
+elseif (g.IS_WINDOWS and string.match(hostname, "^BWF") and g.vscode) then
+	g.VSCODE = 1
+	require("core.vscode")
+elseif (g.IS_WINDOWS and string.match(hostname, "^BWF") and g.IS_WSL) then
+	g.WSL = 1
+	require("core.wsl")
 end
