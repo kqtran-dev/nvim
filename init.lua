@@ -43,7 +43,7 @@ if (g.IS_LINUX) then
 	require("core.base_linux")
 elseif (g.IS_MACOS) then
 	g.BASE_macOS = 1
-	require("core.macos")
+	require("core.base_macos")
 elseif (g.IS_WINDOWS and string.match(hostname, "^BWF") and not g.vscode) then
 	g.BASE = 1
 	require("core.base")
