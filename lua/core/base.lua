@@ -49,6 +49,7 @@ require("lazy").setup({
         { import = "plugins.ui.neoscroll" },
         { import = "plugins.ui.smear" },
         { import = "plugins.ui.transparent" },
+        { import = "plugins.utils.mason" },
         { import = "plugins.utils.telescope" },
         { import = "plugins.utils.vim-startuptime" },
         { import = "plugins.utils.which-key" },

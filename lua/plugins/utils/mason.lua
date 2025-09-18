@@ -3,6 +3,7 @@ return {
     "williamboman/mason.nvim",
     build = ":MasonUpdate",
     config = true,
+    event = "VeryLazy",
   },
   {
     "williamboman/mason-lspconfig.nvim",

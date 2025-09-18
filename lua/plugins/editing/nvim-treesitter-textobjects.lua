@@ -4,7 +4,7 @@ return {
   config = function()
     require('nvim-treesitter.configs').setup({
       ensure_installed = {
-        "vimdoc", "lua", "bash"
+        "vimdoc", "lua", "bash", "powershell"
       },
       sync_install = false,
       auto_install = true,
@@ -16,16 +16,16 @@ return {
         additional_vim_regex_highlighting = false,
       },
     })
-    local treesitter_parser_config = require('nvim-treesitter.parsers').get_parser_configs()
-    treesitter_parser_config.powershell = {
-      install_info = {
-        url = vim.fn.stdpath("config") .. "/tsparsers/tree-sitter-powershell",
-        files = { "src/parser.c", "src/scanner.c"},
-        branch = "main",
-        generate_requires_npm = false,
-        requires_generate_from_grammar = false,
-      },
-      filetype = "ps1",
-    }
-  end
+  --   local treesitter_parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+  --   treesitter_parser_config.powershell = {
+  --     install_info = {
+  --       url = vim.fn.stdpath("config") .. "/tsparsers/tree-sitter-powershell",
+  --       files = { "src/parser.c", "src/scanner.c"},
+  --       branch = "main",
+  --       generate_requires_npm = false,
+  --       requires_generate_from_grammar = false,
+  --     },
+  --     filetype = "ps1",
+  --   }
+  -- end
 }
