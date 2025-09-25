@@ -3,6 +3,7 @@ require("core.globals")
 require("core.remap")
 require("core.utils")
 require("core.autocmds")
+require("core.lsp")
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -30,28 +31,29 @@ vim.g.maplocalleader = "\\"
 -- Setup lazy.nvim
 require("lazy").setup({
     spec = {
+        { import = "plugins.editing.nvim-autopairs" },
         { import = "plugins.editing.blink" },
-        { import = "plugins.editing.blink-copilot" },
+        -- { import = "plugins.editing.blink-copilot" },
         { import = "plugins.editing.conform" },
-        { import = "plugins.editing.harpoon" },
-        { import = "plugins.editing.neotab" },
+        -- { import = "plugins.editing.harpoon" },
+        -- { import = "plugins.editing.neotab" },
         { import = "plugins.editing.nvim-treesitter" },
         { import = "plugins.editing.nvim-treesitter-textobjects" },
         { import = "plugins.editing.osc52" },
         { import = "plugins.editing.oscyank" },
         { import = "plugins.editing.vim-surround" },
-        { import = "plugins.snacks" },
-        { import = "plugins.snacks.bigfile" },
+        { import = "plugins.snacks.picker" },
+        -- { import = "plugins.snacks.bigfile" },
         { import = "plugins.snacks.dashboard" },
         { import = "plugins.snacks.indent" },
-        { import = "plugins.snacks.terminal" },
+        -- { import = "plugins.snacks.terminal" },
         { import = "plugins.ui.colorscheme" },
         { import = "plugins.ui.neoscroll" },
         { import = "plugins.ui.smear" },
         { import = "plugins.ui.transparent" },
-        { import = "plugins.utils.mason" },
+        -- { import = "plugins.utils.mason" },
         { import = "plugins.utils.telescope" },
-        { import = "plugins.utils.vim-startuptime" },
+        -- { import = "plugins.utils.vim-startuptime" },
         { import = "plugins.utils.which-key" },
     },
     -- Configure any other settings here. See the documentation for more details.

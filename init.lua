@@ -47,6 +47,7 @@ elseif (g.IS_MACOS) then
 elseif (g.IS_WINDOWS and string.match(hostname, "^BWF") and not g.vscode) then
 	g.BASE = 1
 	require("core.base")
+  -- require("lsp")
 elseif (g.IS_WINDOWS and string.match(hostname, "^BWF") and g.vscode) then
 	g.VSCODE = 1
 	require("core.vscode")

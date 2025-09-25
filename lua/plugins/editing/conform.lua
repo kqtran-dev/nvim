@@ -1,19 +1,10 @@
 return {
   "stevearc/conform.nvim",
-  keys = {
-    {
-      "<leader>f",
-      function()
-        require("conform").format({ async = true, lsp_fallback = true })
-      end,
-      desc = "[F]ormat buffer",
-    },
-  },
   opts = {
     formatters_by_ft = {
       lua = { "stylua" },
-      -- sql = { "sqlfluff" },
-      sql = { "sqlfluff" },
+      sql = { "sleek" },
+      python = { "ruff" },
     },
     formatters = {
       stylua = {
@@ -25,27 +16,29 @@ return {
         },
         stdin = true,
       },
-      sqlfluff = {
-        command = "sqlfluff",
+      sleek = {
+        command = "sleek",
         args = {
-          "fix",
-          "-",
-          "--disable-progress-bar",
-          "--config",
-          vim.fn.expand("~/.config/formatters/sqlfluff.ini"),
+          "--indent-spaces=2",
+          "--lines-between-queries=4",
         },
-        stdin = true,
-        require_cwd = false,
-        -- cmd = vim.fn.getcwd(),
       },
     },
-
-    format_on_save = function(bufnr)
-      local bufname = vim.api.nvim_buf_get_name(bufnr)
-      if bufname:match("docker%-compose.*%.yml") then
-        return nil
-      end
-      return { timeout_ms = 500, lsp_fallback = true }
-    end,
+    keys = {
+      {
+        "<leader>f",
+        function()
+          require("conform").format({ async = true, lsp_fallback = true })
+        end,
+        desc = "[F]ormat buffer",
+      },
+    },
+    -- format_on_save = function(bufnr)
+    --   local bufname = vim.api.nvim_buf_get_name(bufnr)
+    --   if bufname:match("docker%-compose.*%.yml") then
+    --     return nil
+    --   end
+    --   return { timeout_ms = 500, lsp_fallback = true }
+    -- end,
   },
 }
