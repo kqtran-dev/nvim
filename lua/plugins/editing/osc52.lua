@@ -11,6 +11,7 @@ return {
     require("osc52").copy_register("+")
       end
     end,
+      nested = true, -- adding this because ghostty was hanging 
     })
   end,
 }
