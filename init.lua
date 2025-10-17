@@ -1,3 +1,10 @@
+-- Directory	Purpose
+-- ftdetect/	Detects what filetype a file should be (rules).
+-- ftplugin/	Sets how files of that type behave (options).
+-- syntax/	Defines syntax highlighting for that filetype.
+-- indent/	Defines indentation rules for that filetype.
+-- after/ftplugin/	Lets you override or extend defaults set by plugins or Neovim.
+
 g   = vim.g
 opt = vim.opt
 api = vim.api

@@ -42,3 +42,8 @@ require("lazy").setup({
     -- automatically check for plugin updates
     checker = { enabled = true },
 })
+
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = "~/.config/i3/config",
+  command = "silent !i3-msg restart && notify-send 'Reloaded i3 :)'"
+})
