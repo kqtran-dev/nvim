@@ -44,7 +44,7 @@ require("lazy").setup({
         { import = "plugins.editing.vim-surround" },
         { import = "plugins.snacks.picker" },
         -- { import = "plugins.snacks.bigfile" },
-        { import = "plugins.snacks.dashboard" },
+        -- { import = "plugins.snacks.dashboard" },
         { import = "plugins.snacks.indent" },
         -- { import = "plugins.snacks.terminal" },
         { import = "plugins.ui.colorscheme" },
