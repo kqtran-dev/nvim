@@ -60,5 +60,5 @@ elseif (g.IS_WINDOWS and string.match(hostname, "^BWF") and g.vscode) then
 	require("core.vscode")
 elseif (g.IS_WINDOWS and string.match(hostname, "^BWF") and g.IS_WSL) then
 	g.WSL = 1
-	require("core.wsl")
+	require("core.base_wsl")
 end
