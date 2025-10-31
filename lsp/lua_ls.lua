@@ -24,6 +24,7 @@ return {
             },
             diagnostics = {
                 disable = { "missing-parameters", "missing-fields" },
+                globals = { 'vim' },
             },
             format = {
                 enable = false,
