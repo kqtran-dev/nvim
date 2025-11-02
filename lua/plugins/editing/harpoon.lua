@@ -5,14 +5,14 @@ return {
   config = function()
     local harpoon = require("harpoon")
     harpoon:setup()
-
-    -- Add current file
-    vim.keymap.set("n", "<leader>a", function()
+        settings = {
+            save_on_toggle = true,
+            save_on_ui_close = true,
+        },
+    set("n", "<leader>a", function()
       harpoon:list():add()
     end, { desc = "Harpoon: Add file" })
-
-    -- Default Harpoon picker (Ctrl+e)
-    vim.keymap.set("n", "<C-e>", function()
+    set("n", "<C-e>", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end, { desc = "Harpoon: Quick menu" })
 
@@ -36,18 +36,18 @@ return {
       })
     end
 
-    vim.keymap.set("n", "<leader>fh", function()
+    set("n", "<leader>fh", function()
       snacks_harpoon_picker(harpoon:list())
     end, { desc = "Find [H]arpooned files (Snacks)" })
 
     -- Direct slot navigation (explicit, no loop)
-    vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end,
+    set("n", "<leader>1", function() harpoon:list():select(1) end,
       { desc = "Harpoon: Go to file 1" })
-    vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end,
+    set("n", "<leader>2", function() harpoon:list():select(2) end,
       { desc = "Harpoon: Go to file 2" })
-    vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end,
+    set("n", "<leader>3", function() harpoon:list():select(3) end,
       { desc = "Harpoon: Go to file 3" })
-    vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end,
+    set("n", "<leader>4", function() harpoon:list():select(4) end,
       { desc = "Harpoon: Go to file 4" })
   end,
 }
