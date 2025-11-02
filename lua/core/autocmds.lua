@@ -45,7 +45,7 @@ augroup("setIndent", { clear = true })
 autocmd("Filetype", {
     group = "setIndent",
     pattern = { "xml", "html", "xhtml", "css", "scss", "javascript", "typescript", "yaml", "lua", "sql" },
-    command = "setlocal shiftwidth=2 tabstop=2",
+    command = "setlocal shiftwidth=4 tabstop=4",
 })
 
 autocmd("InsertLeave", {
@@ -179,6 +179,13 @@ function SendVisualToTerminal()
     vim.api.nvim_set_current_win(current_win)
 end
 
+-- vim.api.nvim_create_autocmd("ColorScheme", {
+--   pattern = "*",
+--   callback = function()
+--     vim.api.nvim_set_hl(0, "SnacksPicker", { bg = "none", nocombine = true })
+--     vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = "#316c71", bg = "none", nocombine = true })
+--   end,
+-- })
 -- vim.keymap.set({"n", "v", "i"}, "<C-e>", "<Nop>", { noremap = true })
 -- vim.keymap.set("v", "<C-r>", SendVisualToTerminal, { noremap = true, silent = true })
 -- vim.keymap.set("v", "<leader>r", SendVisualToTerminal, { noremap = true, silent = true })
