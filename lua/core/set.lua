@@ -6,7 +6,8 @@ local utils = require("core.utils")
 g.skip_defaults_vim = 1
 opt.langmenu = "en_US"
 opt.nu = true
-opt.autochdir = true
+-- opt.autochdir = true
+opt.autochdir = false -- disabling for harpoon /  telescope
 
 ------------------------------------------------------------
 -- Memory, CPU

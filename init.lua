@@ -1,27 +1,29 @@
--- Directory	Purpose
--- ftdetect/	Detects what filetype a file should be (rules).
--- ftplugin/	Sets how files of that type behave (options).
--- syntax/	Defines syntax highlighting for that filetype.
--- indent/	Defines indentation rules for that filetype.
--- after/ftplugin/	Lets you override or extend defaults set by plugins or Neovim.
+-- Directory  Purpose
+-- ftdetect/  Detects filetypes (rules).
+-- ftplugin/  Per-filetype options/behavior.
+-- syntax/    Syntax highlighting for filetypes.
+-- indent/    Indentation rules per filetype.
+-- after/ftplugin/  Override/extend plugin or default ftplugin.
 
-g   = vim.g
-opt = vim.opt
-api = vim.api
-cmd = vim.cmd
-augroup = vim.api.nvim_create_augroup
-autocmd = vim.api.nvim_create_autocmd
-set = vim.keymap.set
-uv = vim.uv
+-- Shorthands (kept global to avoid breaking required modules)
+g        = vim.g
+opt      = vim.opt
+api      = vim.api
+cmd      = vim.cmd
+augroup  = vim.api.nvim_create_augroup
+autocmd  = vim.api.nvim_create_autocmd
+set      = vim.keymap.set
+uv       = vim.uv
 
 local hostname = uv.os_gethostname()
 
+-- Disable built-ins/providers you don't use
 g.loaded_gzip              = 1
 g.loaded_tar               = 1
 g.loaded_tarPlugin         = 1
 g.loaded_zip               = 1
 g.loaded_zipPlugin         = 1
--- g.loaded_netrw             = 1
+-- g.loaded_netrw          = 1
 g.loaded_netrwPlugin       = 1
 g.loaded_netrwSettings     = 1
 g.loaded_netrwFileHandlers = 1
@@ -33,32 +35,38 @@ g.loaded_2html_plugin      = 1
 g.loaded_shada_plugin      = 1
 g.loaded_man               = 1
 g.loaded_editorconfig      = 1
-g.skip_defaults_lua = 1
-g.loaded_node_provider = 0
-g.loaded_perl_provider = 0
+g.skip_defaults_lua        = 1
+g.loaded_node_provider     = 0
+g.loaded_perl_provider     = 0
 
+-- OS detection
 local sysname = vim.loop.os_uname().sysname
+local has     = vim.fn.has
+local is_wsl  = (has("wsl") == 1) or (vim.env.WSL_INTEROP ~= nil)
 
-g.IS_MACOS   = sysname == "Darwin"
-g.IS_WINDOWS = sysname == "Windows_NT"
-g.IS_WINDOWS = sysname == "Windows_NT"
-g.IS_WSL     = vim.fn.has("wsl") == 1
-g.IS_LINUX   = sysname == "Linux"
+g.IS_WSL     = is_wsl
+g.IS_MACOS   = (sysname == "Darwin")
+g.IS_WINDOWS = (sysname == "Windows_NT")
+g.IS_LINUX   = (sysname == "Linux") and not is_wsl
 
-if (g.IS_LINUX) then 
-	g.BASE_linux = 1
-	require("core.base_linux")
-elseif (g.IS_MACOS) then
-	g.BASE_macOS = 1
-	require("core.base_macos")
-elseif (g.IS_WINDOWS and string.match(hostname, "^BWF") and not g.vscode) then
-	g.BASE = 1
-	require("core.base")
+-- Hostname pattern used in your Windows logic
+local on_corp_windows = g.IS_WINDOWS and hostname:match("^BWF")
+
+-- Environment routing (order matters: WSL before Linux)
+if g.IS_WSL then
+  g.WSL = 1
+  require("core.base_wsl")
+elseif g.IS_LINUX then
+  g.BASE_linux = 1
+  require("core.base_linux")
+elseif g.IS_MACOS then
+  g.BASE_macOS = 1
+  require("core.base_macos")
+elseif on_corp_windows and not g.vscode then
+  g.BASE = 1
+  require("core.base")
   -- require("lsp")
-elseif (g.IS_WINDOWS and string.match(hostname, "^BWF") and g.vscode) then
-	g.VSCODE = 1
-	require("core.vscode")
-elseif (g.IS_WINDOWS and string.match(hostname, "^BWF") and g.IS_WSL) then
-	g.WSL = 1
-	require("core.base_wsl")
+elseif on_corp_windows and g.vscode then
+  g.VSCODE = 1
+  require("core.vscode")
 end
