@@ -5,6 +5,11 @@ return {
   opts = {
     input = { enabled = true },
     picker = {
+      layout = {
+        layout = {
+          backdrop = false,
+        },
+      },
       lsp = {
         unavailable = "",
         enabled = " ",
