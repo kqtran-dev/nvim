@@ -53,23 +53,44 @@ g.IS_LINUX   = (sysname == "Linux") and not is_wsl
 local on_corp_windows = g.IS_WINDOWS and hostname:match("^BWF")
 local minimal = hostname:match("^cor089")
 
--- Environment routing (order matters: WSL before Linux)
+-- Default to 0 / nil meaning "no config"
+g.configtype = nil
+
 if g.IS_WSL then
+  g.configtype = 1
+elseif g.minimal then
+  g.configtype = 2
+elseif g.IS_LINUX then
+  g.configtype = 3
+elseif g.IS_MACOS then
+  g.configtype = 4
+elseif on_corp_windows and not g.vscode then
+  g.configtype = 5
+elseif on_corp_windows and g.vscode then
+  g.configtype = 6
+end
+
+if g.configtype == 1 then
   g.WSL = 1
   require("core.base_wsl")
-elseif g.minimal then
+
+elseif g.configtype == 2 then
   require("core.base_min")
-elseif g.IS_LINUX then
+
+elseif g.configtype == 3 then
   g.BASE_linux = 1
   require("core.base_linux")
-elseif g.IS_MACOS then
+
+elseif g.configtype == 4 then
   g.BASE_macOS = 1
   require("core.base_macos")
-elseif on_corp_windows and not g.vscode then
+
+elseif g.configtype == 5 then
   g.BASE = 1
   require("core.base")
-  -- require("lsp")
-elseif on_corp_windows and g.vscode then
+
+elseif g.configtype == 6 then
   g.VSCODE = 1
   require("core.vscode")
 end
+
