@@ -51,14 +51,14 @@ g.IS_LINUX   = (sysname == "Linux") and not is_wsl
 
 -- Hostname pattern used in your Windows logic
 local on_corp_windows = g.IS_WINDOWS and hostname:match("^BWF")
-local minimal = hostname:match("^cor089")
+local minimal = hostname:match("cor089z02")
 
 -- Default to 0 / nil meaning "no config"
 g.configtype = nil
 
 if g.IS_WSL then
   g.configtype = 1
-elseif g.minimal then
+elseif minimal then
   g.configtype = 2
 elseif g.IS_LINUX then
   g.configtype = 3
