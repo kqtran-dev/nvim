@@ -51,11 +51,14 @@ g.IS_LINUX   = (sysname == "Linux") and not is_wsl
 
 -- Hostname pattern used in your Windows logic
 local on_corp_windows = g.IS_WINDOWS and hostname:match("^BWF")
+local minimal = hostname:match("^COR089")
 
 -- Environment routing (order matters: WSL before Linux)
 if g.IS_WSL then
   g.WSL = 1
   require("core.base_wsl")
+elseif g.minimal then
+  require("core.base_min")
 elseif g.IS_LINUX then
   g.BASE_linux = 1
   require("core.base_linux")

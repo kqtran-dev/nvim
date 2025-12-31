@@ -27,10 +27,10 @@ set("n", "N", "Nzzzv")
 
 -- deletes highlighted text into void register so you can keep existing register
 -- set('n', '<leader>y', '\"+y')
-set('v', '<leader>y', '\"+y')
+set("v", "<leader>y", '"+y')
 -- set('n', '<leader>Y', '\"+Y')
 
-set("x", "<leader>p", "\"_dP")
+set("x", "<leader>p", '"_dP')
 
 set({ "n", "v" }, "<leader>y", [["+y]])
 set("n", "<leader>Y", [["+Y]])
@@ -42,14 +42,17 @@ set("n", "<leader>Y", [["+Y]])
 -- try to mimic ctrl + backspace behavior // undoing this because C-W is more vim-like
 -- vim.api.nvim_set_keymap('i', '<C-H>', '<C-W>', {noremap = true})
 
-set('n', '<Leader>q', '<C-R><C-R>');
-set('n', '<leader>b', ':ls<CR>:b<Space>', { noremap = true, silent = false })
+set("n", "<Leader>q", "<C-R><C-R>")
 
--- Map gh to move to the beginning of the line
-api.nvim_set_keymap('n', 'gh', '^', { noremap = true, silent = true })
+-- list buffers
+set("n", "<leader>b", ":ls<CR>:b<Space>", { noremap = true, silent = false })
 
--- Map gl to move to the end of the line
-api.nvim_set_keymap('n', 'gl', 'g_', { noremap = true, silent = true })
+set("n", "<Tab>", ":bnext<cr>", { noremap = true })
+set("n", "<bs>", ":bprevious<cr>", { noremap = true })
+
+-- Map gh and gl to move to the beginning and end of line
+set("n", "gh", "^", { noremap = true, silent = true })
+set("n", "gl", "g_", { noremap = true, silent = true })
 
 -- tabs - sacrilege
 set("n", "<leader>h", ":tabprevious<CR>", { noremap = true, silent = true })
@@ -58,30 +61,29 @@ set("n", "<leader>tn", ":tabnew<CR>", { noremap = true, silent = true })
 
 -- yank an entire file to the clipboard
 function YankAll()
-    vim.cmd("normal! ggVG\"+y")
+    vim.cmd('normal! ggVG"+y')
 end
-api.nvim_set_keymap('n', '<leader>yA', ':lua YankAll()<CR>', { noremap = true, silent = true })
+api.nvim_set_keymap("n", "<leader>yA", ":lua YankAll()<CR>", { noremap = true, silent = true })
 
 -- yank from mark { to mark }
 function YankInsideMarks()
     -- Jump to the starting mark `[`
-    vim.cmd("normal! `{v`}\"+y")
+    vim.cmd('normal! `{v`}"+y')
     print("Copied text between marks to clipboard")
 end
 -- Map to a keybinding (e.g., <leader>m)
-api.nvim_set_keymap('n', '<leader>yim', ':lua YankInsideMarks()<CR>', { noremap = true, silent = true })
+api.nvim_set_keymap("n", "<leader>yim", ":lua YankInsideMarks()<CR>", { noremap = true, silent = true })
 
 function YankLine()
-  vim.cmd('normal! ^v$"+y')
+    vim.cmd('normal! ^v$"+y')
 end
-api.nvim_set_keymap('n', '<leader>y', ':lua YankLine()<CR>', { noremap = true, silent = true })
+api.nvim_set_keymap("n", "<leader>y", ":lua YankLine()<CR>", { noremap = true, silent = true })
 
 -- insert mode movement
 set("i", "<C-j>", "<Down>")
 set("i", "<C-k>", "<Up>")
 set("i", "<C-h>", "<C-o>b")
 set("i", "<C-l>", "<C-o>w")
-
 
 -- window movement
 -- set("n", "<Up>", "<c-w>k")
