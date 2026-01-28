@@ -47,7 +47,7 @@ require("lazy").setup({
         { import = "plugins.snacks.dashboard" },
         { import = "plugins.snacks.indent" },
         -- { import = "plugins.snacks.terminal" },
-        { import = "plugins.ui.colorscheme" },
+        -- { import = "plugins.ui.colorscheme" },
         { import = "plugins.ui.vim-log-highlighting" },
         { import = "plugins.ui.vim-searchindex" },
         -- { import = "plugins.ui.neoscroll" },
