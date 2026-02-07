@@ -79,11 +79,18 @@ function YankLine()
 end
 api.nvim_set_keymap("n", "<leader>y", ":lua YankLine()<CR>", { noremap = true, silent = true })
 
+-- markdown helpers
+set("v", "<leader>b", 'c**<C-r>"**<Esc>', { desc = "Bold selection" })
+set("v", "<leader>i", 'c*<C-r>"*<Esc>',  { desc = "Italic selection" })
+
 -- insert mode movement
 set("i", "<C-j>", "<Down>")
 set("i", "<C-k>", "<Up>")
 set("i", "<C-h>", "<C-o>b")
 set("i", "<C-l>", "<C-o>w")
+
+
+set("i", "<C-b>", "****<Left><Left>", { desc = "Start bold" })
 
 -- window movement
 -- set("n", "<Up>", "<c-w>k")
