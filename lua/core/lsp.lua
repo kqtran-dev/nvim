@@ -1,5 +1,6 @@
 vim.lsp.enable({
-  "powershell",
+    "powershell",
+    "powershell_es",
     "pyright",
     "lua_ls"
 })

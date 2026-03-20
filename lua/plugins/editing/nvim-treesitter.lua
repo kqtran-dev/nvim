@@ -100,6 +100,7 @@ return {
       'checkhealth',
       'lazy',
       'mason',
+      'lazy_backdrop',
       'snacks_dashboard',
       'snacks_notif',
       'snacks_win',
