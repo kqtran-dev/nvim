@@ -98,6 +98,7 @@ return {
 
     local ignore_filetypes = {
       'checkhealth',
+      'dosbatch',
       'lazy',
       'mason',
       'lazy_backdrop',
