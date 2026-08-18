@@ -48,22 +48,22 @@ require("lazy").setup({
         { import = "plugins.snacks.dashboard" },
         -- { import = "plugins.snacks.indent" },
         -- { import = "plugins.snacks.terminal" },
-        -- { import = "plugins.ui.colorscheme" },
-        -- { import = "plugins.ui.lualine" },
-        -- { import = "plugins.ui.neoscroll" },
+        { import = "plugins.ui.colorscheme" },
+        { import = "plugins.ui.lualine" },
+        { import = "plugins.ui.neoscroll" },
         { import = "plugins.ui.smear" },
         { import = "plugins.ui.transparent" },
         { import = "plugins.utils.mason" },
         -- { import = "plugins.ui.vim-log-highlighting" },
-        -- { import = "plugins.ui.vim-searchindex" },
+        { import = "plugins.ui.vim-searchindex" },
         -- { import = "plugins.utils.telescope" },
         -- { import = "plugins.utils.vim-startuptime" },
-        -- { import = "plugins.utils.which-key" },
+        { import = "plugins.utils.which-key" },
         -- { import = "plugins.utils.yazi-nvim" },
     },
     -- Configure any other settings here. See the documentation for more details.
     -- colorscheme that will be used when installing plugins.
     -- install = { colorscheme = { "habamax" } },
     -- automatically check for plugin updates
-    checker = { enabled = true },
+    checker = { enabled = true , notify = false},
 })
