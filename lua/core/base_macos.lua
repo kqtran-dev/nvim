@@ -36,5 +36,5 @@ require("lazy").setup({
         { import = "plugins.utils" },
         { import = "plugins.db" },
     },
-    checker = { enabled = true },
+    checker = { enabled = false },
 })
