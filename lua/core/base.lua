@@ -31,7 +31,7 @@ vim.g.maplocalleader = "\\"
 -- Setup lazy.nvim
 require("lazy").setup({
     spec = {
-        -- { import = "plugins.editing.nvim-autopairs" },
+        { import = "plugins.editing.nvim-autopairs" },
         { import = "plugins.editing.blink" },
         -- { import = "plugins.editing.blink-copilot" },
         -- { import = "plugins.editing.conform" },
@@ -49,7 +49,7 @@ require("lazy").setup({
         -- { import = "plugins.snacks.indent" },
         -- { import = "plugins.snacks.terminal" },
         { import = "plugins.ui.colorscheme" },
-        { import = "plugins.ui.lualine" },
+        -- { import = "plugins.ui.lualine" },
         { import = "plugins.ui.neoscroll" },
         { import = "plugins.ui.smear" },
         { import = "plugins.ui.transparent" },

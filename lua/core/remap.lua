@@ -11,11 +11,11 @@ set("v", "<C-S-Down>", ":m '>+1<CR>gv=gv")
 set("v", "<C-S-K>", ":m '<-2<CR>gv=gv")
 
 --  these are the ones that work on Windows
-set("n", "<A-j>", ":m .+1<CR>==") -- move line up(n)
-set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
-
-set("n", "<A-k>", ":m .-2<CR>==") -- move line down(n)
-set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
+-- disabling because Alt keeps getting stuck when using RDP lol
+-- set("n", "<A-j>", ":m .+1<CR>==") -- move line up(n)
+-- set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
+-- set("n", "<A-k>", ":m .-2<CR>==") -- move line down(n)
+-- set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
 
 -- half page jumps - keep cursor centered
 set("n", "<C-d>", "<C-d>zz")
@@ -47,8 +47,9 @@ set("n", "<Leader>q", "<C-R><C-R>")
 -- list buffers
 set("n", "<leader>b", ":ls<CR>:b<Space>", { noremap = true, silent = false })
 
-set("n", "<Tab>", ":bnext<cr>", { noremap = true })
-set("n", "<bs>", ":bprevious<cr>", { noremap = true })
+-- commenting this so i can use treesitter instead
+-- set("n", "<Tab>", ":bnext<cr>", { noremap = true })
+-- set("n", "<bs>", ":bprevious<cr>", { noremap = true })
 
 -- Map gh and gl to move to the beginning and end of line
 set("n", "gh", "^", { noremap = true, silent = true })
