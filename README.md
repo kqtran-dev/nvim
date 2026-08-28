@@ -6,13 +6,14 @@
 
 ### dependencies
 
-#### telescope
-
+`scoop install neovim`
+`scoop install fd`
+`scoop install fzf`
+`scoop install jq`
+`scoop install ripgrep`
+`scoop install rustup`
 `winget install Microsoft.VisualStudio.2022.BuildTools --force --override "--wait --passive --add Microsoft.VisualStudio.Component.VC.Tools.x86.x64 --add Microsoft.VisualStudio.Component.Windows10SDK"`
 
-`winget install sharkdp.fd`
-
-`winget install BurntSushi.ripgrep.MSVC`
 
 ## Linux
 `stow -d ~/.config -t ~ nvim`
