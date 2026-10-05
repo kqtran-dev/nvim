@@ -40,6 +40,7 @@ return {
                     "lua_ls",
                     "jsonls",
                     "powershell_es",
+                    "rust_analyzer",
                 },
                 automatic_enable = {
                     exclude = {
@@ -49,7 +50,7 @@ return {
             })
 
             local pes_bundle = vim.fn.stdpath("data")
-            .. "/mason/packages/powershell-editor-services/PowerShellEditorServices"
+            .. "/mason/packages/powershell-editor-services"
 
             vim.lsp.config("powershell_es", {
                 capabilities = capabilities,
