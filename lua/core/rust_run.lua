@@ -1,16 +1,32 @@
 -- ~/.config/nvim/lua/rust_run.lua
--- Quick Rust runner + REPL for Neovim.
---   <leader>rr  (normal)  save & run the whole file (cargo run, or rustc for a lone .rs file)
+-- Quick Rust runner, REPL, and Cargo workflow for Neovim.
+--
+--   Run / REPL
+--   <leader>rr  (normal)  save & run the file (cargo run, or rustc for a lone .rs file)
 --   <leader>rs  (visual)  send highlighted lines to the evcxr REPL
 --   <leader>rs  (normal)  send the current line to the REPL
 --   <leader>rk  (normal)  restart the REPL (clears all variables)
--- Requires: Neovim 0.10+, and `cargo install evcxr_repl` for the REPL.
+--
+--   Cargo (inside a Cargo project)
+--   <leader>rb  cargo build   -> errors/warnings in the quickfix list
+--   <leader>rc  cargo clippy  -> lints + errors in the quickfix list (use this most)
+--   <leader>rt  cargo test    -> output in the bottom split
+--   <leader>rf  cargo fmt     -> formats the project and reloads open buffers
+--
+--   Quickfix: ]q / [q (or :cnext / :cprev) jump between problems, :cclose closes it.
+--
+-- Requires: Neovim 0.10+, `cargo install --locked evcxr_repl` for the REPL,
+--           and `rustup component add clippy rustfmt` (installed by default with rustup).
 
 local M = {}
 
 local HEIGHT = 15
 local repl = { buf = nil, chan = nil }
 local run_buf = nil
+
+---------------------------------------------------------------------------
+-- Helpers
+---------------------------------------------------------------------------
 
 -- Start a terminal job in the current buffer (handles the 0.11 API change)
 local function term_start(cmd, opts)
@@ -40,6 +56,37 @@ local function scroll_to_end(buf)
   end
 end
 
+local function cargo_root(quiet)
+  local root = vim.fs.root(0, "Cargo.toml")
+  if not root and not quiet then
+    vim.notify("Not in a Cargo project. Create one with: cargo new my_project",
+      vim.log.levels.WARN)
+  end
+  return root
+end
+
+-- Run a shell command in the shared bottom output split (replacing the last run)
+local function run_in_term(cmd, cwd)
+  local cur = vim.api.nvim_get_current_win()
+  local old = run_buf
+  run_buf = vim.api.nvim_create_buf(false, true)
+
+  local win = (old and vim.api.nvim_buf_is_valid(old)) and vim.fn.bufwinid(old) or -1
+  if win ~= -1 then
+    vim.api.nvim_set_current_win(win)
+    vim.api.nvim_win_set_buf(win, run_buf)
+  else
+    show_bottom(run_buf)
+  end
+  if old and vim.api.nvim_buf_is_valid(old) then
+    vim.api.nvim_buf_delete(old, { force = true })
+  end
+
+  term_start({ vim.o.shell, vim.o.shellcmdflag, cmd }, { cwd = cwd })
+  vim.cmd("normal! G")
+  vim.api.nvim_set_current_win(cur)
+end
+
 ---------------------------------------------------------------------------
 -- REPL (evcxr)
 ---------------------------------------------------------------------------
@@ -53,7 +100,8 @@ local function ensure_repl()
   end
 
   if vim.fn.executable("evcxr") == 0 then
-    vim.notify("evcxr not found. Install it with: cargo install evcxr_repl", vim.log.levels.ERROR)
+    vim.notify("evcxr not found. Install it with: cargo install --locked evcxr_repl",
+      vim.log.levels.ERROR)
     return false
   end
 
@@ -92,46 +140,101 @@ function M.restart_repl()
 end
 
 ---------------------------------------------------------------------------
--- Run whole file
+-- Run
 ---------------------------------------------------------------------------
 function M.run_file()
-  vim.cmd("silent write")
-
-  local root = vim.fs.root(0, "Cargo.toml")
-  local cmd
+  vim.cmd("silent wall")
+  local root = cargo_root(true)
   if root then
-    cmd = "cd " .. vim.fn.shellescape(root) .. " && cargo run -q"
+    run_in_term("cargo run -q", root)
   else
     local exe = vim.fn.tempname()
-    cmd = ("rustc --edition 2024 %s -o %s && %s"):format(
-      vim.fn.shellescape(vim.fn.expand("%:p")), exe, exe)
+    run_in_term(("rustc --edition 2024 %s -o %s && %s"):format(
+      vim.fn.shellescape(vim.fn.expand("%:p")), exe, exe))
   end
+end
 
-  local cur = vim.api.nvim_get_current_win()
-  local old = run_buf
-  run_buf = vim.api.nvim_create_buf(false, true)
+---------------------------------------------------------------------------
+-- Cargo -> quickfix (build / clippy)
+---------------------------------------------------------------------------
+-- --message-format=short gives one line per problem:
+--   src/main.rs:4:9: warning: unused variable: `x`
+--   src/main.rs:7:5: error[E0425]: cannot find value `y` in this scope
+local EFM = "%f:%l:%c: %t%*[^:]: %m"
 
-  -- Reuse the previous output window if it's still open
-  local win = (old and vim.api.nvim_buf_is_valid(old)) and vim.fn.bufwinid(old) or -1
-  if win ~= -1 then
-    vim.api.nvim_set_current_win(win)
-    vim.api.nvim_win_set_buf(win, run_buf)
-  else
-    show_bottom(run_buf)
-  end
-  if old and vim.api.nvim_buf_is_valid(old) then
-    vim.api.nvim_buf_delete(old, { force = true })
-  end
+local function cargo_qf(subcmd, title)
+  local root = cargo_root()
+  if not root then return end
+  vim.cmd("silent wall")
+  vim.notify(title .. "…")
 
-  term_start({ vim.o.shell, vim.o.shellcmdflag, cmd })
-  vim.cmd("normal! G")
-  vim.api.nvim_set_current_win(cur)
+  local cmd = { "cargo", subcmd, "--message-format=short" }
+  vim.system(cmd, { cwd = root, text = true }, vim.schedule_wrap(function(res)
+    local output = (res.stderr or "") .. (res.stdout or "")
+    local problems = {}
+    for line in output:gmatch("[^\n]+") do
+      if line:match("^[^%s:]+:%d+:%d+: ") then
+        -- cargo prints paths relative to the project root; make them absolute
+        if not line:match("^/") then line = root .. "/" .. line end
+        table.insert(problems, line)
+      end
+    end
+
+    vim.fn.setqflist({}, " ", { title = title, lines = problems, efm = EFM })
+
+    if #problems > 0 then
+      vim.cmd("botright copen")
+      vim.cmd("wincmd p")
+    else
+      vim.cmd("cclose")
+    end
+
+    if res.code == 0 then
+      local msg = #problems > 0 and (" (%d warning(s))"):format(#problems) or ""
+      vim.notify("✓ " .. title .. " passed" .. msg)
+    elseif #problems == 0 then
+      -- Failed without file:line errors (e.g. a bad Cargo.toml): show the raw output
+      vim.notify(title .. " failed:\n" .. output, vim.log.levels.ERROR)
+    else
+      vim.notify("✗ " .. title .. " failed", vim.log.levels.ERROR)
+    end
+  end))
+end
+
+function M.build()  cargo_qf("build", "cargo build") end
+function M.clippy() cargo_qf("clippy", "cargo clippy") end
+
+---------------------------------------------------------------------------
+-- Test / fmt
+---------------------------------------------------------------------------
+function M.test()
+  local root = cargo_root()
+  if not root then return end
+  vim.cmd("silent wall")
+  run_in_term("cargo test", root)
+end
+
+function M.fmt()
+  local root = cargo_root()
+  if not root then return end
+  vim.cmd("silent wall")
+  vim.system({ "cargo", "fmt" }, { cwd = root, text = true }, vim.schedule_wrap(function(res)
+    if res.code == 0 then
+      vim.cmd("checktime") -- reload buffers changed on disk
+      vim.notify("✓ formatted")
+    else
+      vim.notify("cargo fmt failed:\n" .. (res.stderr or ""), vim.log.levels.ERROR)
+    end
+  end))
 end
 
 ---------------------------------------------------------------------------
 -- Keymaps (only in Rust buffers)
 ---------------------------------------------------------------------------
 function M.setup()
+  -- Lets :checktime reload formatted files without a prompt
+  vim.o.autoread = true
+
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "rust",
     callback = function(ev)
@@ -140,6 +243,10 @@ function M.setup()
       vim.keymap.set("x", "<leader>rs", M.send_selection, o("Rust: send selection to REPL"))
       vim.keymap.set("n", "<leader>rs", M.send_line, o("Rust: send line to REPL"))
       vim.keymap.set("n", "<leader>rk", M.restart_repl, o("Rust: restart REPL"))
+      vim.keymap.set("n", "<leader>rb", M.build, o("Rust: cargo build"))
+      vim.keymap.set("n", "<leader>rc", M.clippy, o("Rust: cargo clippy"))
+      vim.keymap.set("n", "<leader>rt", M.test, o("Rust: cargo test"))
+      vim.keymap.set("n", "<leader>rf", M.fmt, o("Rust: cargo fmt"))
     end,
   })
 end
