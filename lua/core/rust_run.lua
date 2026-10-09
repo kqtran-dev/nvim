@@ -65,6 +65,14 @@ local function cargo_root(quiet)
   return root
 end
 
+-- If the current file is <root>/src/bin/<name>.rs, return " --bin <name>", else ""
+local function bin_flag(root)
+  local file = vim.fn.expand("%:p")
+  local name = file:match("^" .. vim.pesc(root) .. "/src/bin/([^/]+)%.rs$")
+  return name and (" --bin " .. vim.fn.shellescape(name)) or ""
+end
+
+
 -- Run a shell command in the shared bottom output split (replacing the last run)
 local function run_in_term(cmd, cwd)
   local cur = vim.api.nvim_get_current_win()
@@ -146,7 +154,7 @@ function M.run_file()
   vim.cmd("silent wall")
   local root = cargo_root(true)
   if root then
-    run_in_term("cargo run -q", root)
+    run_in_term("cargo run -q" .. bin_flag(root), root)
   else
     local exe = vim.fn.tempname()
     run_in_term(("rustc --edition 2024 %s -o %s && %s"):format(
@@ -212,6 +220,8 @@ function M.test()
   if not root then return end
   vim.cmd("silent wall")
   run_in_term("cargo test", root)
+    -- --nocapture shows println!/dbg! output from inside tests
+  run_in_term("cargo test" .. bin_flag(root) .. " -- --nocapture", root)
 end
 
 function M.fmt()
@@ -243,10 +253,10 @@ function M.setup()
       vim.keymap.set("x", "<leader>rs", M.send_selection, o("Rust: send selection to REPL"))
       vim.keymap.set("n", "<leader>rs", M.send_line, o("Rust: send line to REPL"))
       vim.keymap.set("n", "<leader>rk", M.restart_repl, o("Rust: restart REPL"))
-      vim.keymap.set("n", "<leader>rb", M.build, o("Rust: cargo build"))
-      vim.keymap.set("n", "<leader>rc", M.clippy, o("Rust: cargo clippy"))
-      vim.keymap.set("n", "<leader>rt", M.test, o("Rust: cargo test"))
-      vim.keymap.set("n", "<leader>rf", M.fmt, o("Rust: cargo fmt"))
+      vim.keymap.set("n", "<leader>cb", M.build, o("Rust: cargo build"))
+      vim.keymap.set("n", "<leader>cc", M.clippy, o("Rust: cargo clippy"))
+      vim.keymap.set("n", "<leader>ct", M.test, o("Rust: cargo test"))
+      vim.keymap.set("n", "<leader>cf", M.fmt, o("Rust: cargo fmt"))
     end,
   })
 end

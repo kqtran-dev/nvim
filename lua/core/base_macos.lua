@@ -4,6 +4,7 @@ require("core.remap")
 require("core.utils")
 require("core.autocmds")
 require("core.rust_run").setup()
+require("core.term_toggle").setup()
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
