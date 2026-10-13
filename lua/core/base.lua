@@ -47,7 +47,7 @@ require("lazy").setup({
         -- { import = "plugins.snacks.bigfile" },
         { import = "plugins.snacks.dashboard" },
         -- { import = "plugins.snacks.indent" },
-        -- { import = "plugins.snacks.terminal" },
+        { import = "plugins.snacks.terminal" },
         { import = "plugins.ui.colorscheme" },
         -- { import = "plugins.ui.lualine" },
         { import = "plugins.ui.neoscroll" },

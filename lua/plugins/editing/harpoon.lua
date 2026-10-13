@@ -12,7 +12,7 @@ return {
     set("n", "<leader>a", function()
       harpoon:list():add()
     end, { desc = "Harpoon: Add file" })
-    set("n", "<C-e>", function()
+    -- set("n", "<C-e>", function() -- removing this because i want to use ctrl shift e for send to terminal
       harpoon.ui:toggle_quick_menu(harpoon:list())
     end, { desc = "Harpoon: Quick menu" })
 

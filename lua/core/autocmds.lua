@@ -186,6 +186,3 @@ end
 --     vim.api.nvim_set_hl(0, "SnacksPickerBorder", { fg = "#316c71", bg = "none", nocombine = true })
 --   end,
 -- })
--- vim.keymap.set({"n", "v", "i"}, "<C-e>", "<Nop>", { noremap = true })
--- vim.keymap.set("v", "<C-r>", SendVisualToTerminal, { noremap = true, silent = true })
--- vim.keymap.set("v", "<leader>r", SendVisualToTerminal, { noremap = true, silent = true })
