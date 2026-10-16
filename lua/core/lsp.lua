@@ -1,10 +1,10 @@
-vim.lsp.enable({
-    "powershell",
-    "powershell_es",
-    "pyright",
-    "lua_ls"
-})
-
+-- vim.lsp.enable({
+--     -- "powershell",
+--     -- "powershell_es",
+--     "pyright",
+--     "lua_ls"
+-- })
+--
 vim.diagnostic.config({
     virtual_text = true,
     underline = true,
