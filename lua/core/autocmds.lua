@@ -10,22 +10,44 @@ autocmd("BufReadPost", {
 
 -- highlight the yanked text - qol
 autocmd("User", {
-    pattern = "VeryLazy",
-    callback = function()
-        vim.defer_fn(function()
-            vim.api.nvim_set_hl(0, "YankClipboard", { fg = "black", bg = "LightBlue", bold = true })
-            vim.api.nvim_set_hl(0, "YankNormal", { fg = "black", bg = "white", bold = true })
-            autocmd("TextYankPost", {
-                callback = function()
-                    local event = vim.v.event
-                    vim.highlight.on_yank({
-                        higroup = (event.regname == "+" or event.regname == "*") and "YankClipboard" or "YankNormal",
-                        timeout = (event.regname == "+" or event.regname == "*") and 190 or 40,
-                    })
-                end,
-            })
-        end, 200) -- delay in milliseconds
-    end,
+  pattern = "VeryLazy",
+  callback = function()
+    vim.defer_fn(function()
+      vim.api.nvim_set_hl(0, "YankClipboard", {
+        fg = "black",
+        bg = "LightBlue",
+        bold = true,
+      })
+
+      vim.api.nvim_set_hl(0, "YankNormal", {
+        fg = "black",
+        bg = "white",
+        bold = true,
+      })
+
+      autocmd("TextYankPost", {
+        callback = function()
+          local event = vim.v.event
+
+          vim.highlight.on_yank({
+            higroup = (event.regname == "+" or event.regname == "*")
+                and "YankClipboard"
+              or "YankNormal",
+            timeout = (event.regname == "+" or event.regname == "*")
+                and 190
+              or 40,
+          })
+
+          -- Leave the cursor at the end of an ordinary yank.
+          if event.operator == "y" then
+            vim.schedule(function()
+              vim.cmd("normal! `]")
+            end)
+          end
+        end,
+      })
+    end, 200)
+  end,
 })
 
 -- disable autocomment new lines

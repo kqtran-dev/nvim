@@ -183,10 +183,6 @@ opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
 opt.conceallevel = 0 -- this is super annoying when trying to read json
 
 
---autocmd FileType json setlocal formatprg=jq
--- Restore cursor to file position in previous editing session
-    -- highlights yanked text
-
 -----------------------------------------------------------
 -- Startup
 -----------------------------------------------------------
