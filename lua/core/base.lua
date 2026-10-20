@@ -42,7 +42,7 @@ require("lazy").setup({
         { import = "plugins.editing.osc52" },
         { import = "plugins.editing.oscyank" },
         { import = "plugins.editing.powershell" }, -- why is this needed? 
-        -- { import = "plugins.editing.vim-surround" },
+        { import = "plugins.editing.vim-surround" },
         { import = "plugins.snacks.picker" },
         -- { import = "plugins.snacks.bigfile" },
         { import = "plugins.snacks.dashboard" },
